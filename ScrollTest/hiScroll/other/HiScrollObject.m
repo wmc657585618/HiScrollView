@@ -76,16 +76,20 @@
 @interface HiScrollGesture ()
 
 @property (nonatomic, assign) BOOL addGesture;
+@property (nonatomic, weak) UITapGestureRecognizer *tap;
 
 @end
 @implementation HiScrollGesture
 
 /// MARK: - UIGestureRecognizerDelegate
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch{
-    if ([self.delegate respondsToSelector:@selector(gesture:shouldReceiveTouch:)]) {
-        return [self.delegate gesture:gestureRecognizer shouldReceiveTouch:touch];
+    if ([gestureRecognizer isEqual:self.tap]) {
+        if ([self.delegate respondsToSelector:@selector(gesture:shouldReceiveTouch:)]) {
+            [self.delegate gesture:gestureRecognizer shouldReceiveTouch:touch];
+        }
+        return false;
     }
-    return YES ;
+    return true;
 }
 
 - (void)panAction:(UIPanGestureRecognizer *)gestureRecognizer {
@@ -97,11 +101,12 @@
 /// MARK: - public
 - (void)addGestureAtView:(UIView *)view {
     if (self.addGesture) return;
-    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(panAction:)];
+    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panAction:)];
     [view addGestureRecognizer:pan];
 
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:nil];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:nil action:nil];
     tap.delegate = self;
+    self.tap = tap;
     [view addGestureRecognizer:tap];
 }
 

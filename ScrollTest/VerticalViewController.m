@@ -50,6 +50,7 @@ static CGFloat const contentOffset = 140;
     if (!_tableView) {
         _tableView = [[UITableView alloc] init];
         _tableView.dataSource = self;
+        _tableView.delegate = self;
         _tableView.hi_scrollEnabled = true;
         _tableView.topProperty = 10;
         _tableView.bottomProperty = 1000;
@@ -111,4 +112,7 @@ static CGFloat const contentOffset = 140;
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"didSelectRowAtIndexPath");
+}
 @end

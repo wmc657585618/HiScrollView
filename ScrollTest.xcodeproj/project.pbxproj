@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1C29C8EB259B204000218822 /* HiScrollObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C29C8EA259B204000218822 /* HiScrollObject.m */; };
-		1C29C8F3259B22BB00218822 /* HiScrollViewPublic.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C29C8F2259B22BB00218822 /* HiScrollViewPublic.m */; };
 		1C764A282588E3AF002BDDB8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C764A272588E3AF002BDDB8 /* AppDelegate.m */; };
 		1C764A2B2588E3AF002BDDB8 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C764A2A2588E3AF002BDDB8 /* SceneDelegate.m */; };
 		1C764A2E2588E3AF002BDDB8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C764A2D2588E3AF002BDDB8 /* ViewController.m */; };
@@ -18,12 +16,6 @@
 		1C764A392588E3B1002BDDB8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C764A382588E3B1002BDDB8 /* main.m */; };
 		1C8082A0259F07AC0030556B /* VerticalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C80829F259F07AC0030556B /* VerticalViewController.m */; };
 		1C8082A4259F07CE0030556B /* HorizontalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C8082A3259F07CE0030556B /* HorizontalViewController.m */; };
-		1C92B3F6259C71830036E74F /* HiScrollViewVertical.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C92B3F5259C71830036E74F /* HiScrollViewVertical.m */; };
-		1C92B3FA259C72940036E74F /* HiScrollViewPrivate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C92B3F9259C72940036E74F /* HiScrollViewPrivate.m */; };
-		1C92B3FF259C768D0036E74F /* HiScrollViewPropertyVertical.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C92B3FE259C768D0036E74F /* HiScrollViewPropertyVertical.m */; };
-		1C92B403259C76AA0036E74F /* HiScrollViewPropertyHorizontal.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C92B402259C76AA0036E74F /* HiScrollViewPropertyHorizontal.m */; };
-		1C92B407259C80300036E74F /* HiScrollViewHorizontal.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C92B406259C80300036E74F /* HiScrollViewHorizontal.m */; };
-		1C92B40C259C86210036E74F /* HiScrollViewDefine.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C92B40B259C86210036E74F /* HiScrollViewDefine.m */; };
 		1CC1A0AE2599FF8C007F8F8B /* UIScrollView+MJRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CC1A0802599FF8C007F8F8B /* UIScrollView+MJRefresh.m */; };
 		1CC1A0AF2599FF8C007F8F8B /* MJRefreshConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CC1A0812599FF8C007F8F8B /* MJRefreshConst.m */; };
 		1CC1A0B02599FF8C007F8F8B /* MJRefresh.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1CC1A0852599FF8C007F8F8B /* MJRefresh.bundle */; };
@@ -44,15 +36,19 @@
 		1CC1A0BF2599FF8C007F8F8B /* MJRefreshBackFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CC1A0A82599FF8C007F8F8B /* MJRefreshBackFooter.m */; };
 		1CC1A0C02599FF8C007F8F8B /* MJRefreshAutoFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CC1A0A92599FF8C007F8F8B /* MJRefreshAutoFooter.m */; };
 		1CC1A0C12599FF8C007F8F8B /* MJRefreshComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CC1A0AB2599FF8C007F8F8B /* MJRefreshComponent.m */; };
-		1CFABDF1259375D2006D022E /* HiScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CFABDF0259375D2006D022E /* HiScrollView.m */; };
+		1CDB2C7225A2EE4200802FC4 /* HiScrollViewDefine.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDB2C5B25A2EE4200802FC4 /* HiScrollViewDefine.m */; };
+		1CDB2C7325A2EE4200802FC4 /* HiScrollObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDB2C5E25A2EE4200802FC4 /* HiScrollObject.m */; };
+		1CDB2C7425A2EE4200802FC4 /* HiScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDB2C6125A2EE4200802FC4 /* HiScrollView.m */; };
+		1CDB2C7525A2EE4200802FC4 /* HiScrollViewPublic.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDB2C6225A2EE4200802FC4 /* HiScrollViewPublic.m */; };
+		1CDB2C7625A2EE4200802FC4 /* HiScrollViewPrivate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDB2C6625A2EE4200802FC4 /* HiScrollViewPrivate.m */; };
+		1CDB2C7725A2EE4200802FC4 /* HiScrollViewPropertyHorizontal.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDB2C6925A2EE4200802FC4 /* HiScrollViewPropertyHorizontal.m */; };
+		1CDB2C7825A2EE4200802FC4 /* HiScrollViewHorizontal.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDB2C6A25A2EE4200802FC4 /* HiScrollViewHorizontal.m */; };
+		1CDB2C7925A2EE4200802FC4 /* HiScrollViewPropertyVertical.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDB2C7025A2EE4200802FC4 /* HiScrollViewPropertyVertical.m */; };
+		1CDB2C7A25A2EE4200802FC4 /* HiScrollViewVertical.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDB2C7125A2EE4200802FC4 /* HiScrollViewVertical.m */; };
 		1CFABE192595CE2B006D022E /* DynamicItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CFABE182595CE2B006D022E /* DynamicItem.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1C29C8E9259B204000218822 /* HiScrollObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HiScrollObject.h; sourceTree = "<group>"; };
-		1C29C8EA259B204000218822 /* HiScrollObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HiScrollObject.m; sourceTree = "<group>"; };
-		1C29C8F1259B22BB00218822 /* HiScrollViewPublic.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HiScrollViewPublic.h; sourceTree = "<group>"; };
-		1C29C8F2259B22BB00218822 /* HiScrollViewPublic.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HiScrollViewPublic.m; sourceTree = "<group>"; };
 		1C764A232588E3AF002BDDB8 /* ScrollTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScrollTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C764A262588E3AF002BDDB8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1C764A272588E3AF002BDDB8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -69,18 +65,6 @@
 		1C80829F259F07AC0030556B /* VerticalViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VerticalViewController.m; sourceTree = "<group>"; };
 		1C8082A2259F07CE0030556B /* HorizontalViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HorizontalViewController.h; sourceTree = "<group>"; };
 		1C8082A3259F07CE0030556B /* HorizontalViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HorizontalViewController.m; sourceTree = "<group>"; };
-		1C92B3F4259C71830036E74F /* HiScrollViewVertical.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HiScrollViewVertical.h; sourceTree = "<group>"; };
-		1C92B3F5259C71830036E74F /* HiScrollViewVertical.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HiScrollViewVertical.m; sourceTree = "<group>"; };
-		1C92B3F8259C72940036E74F /* HiScrollViewPrivate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HiScrollViewPrivate.h; sourceTree = "<group>"; };
-		1C92B3F9259C72940036E74F /* HiScrollViewPrivate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HiScrollViewPrivate.m; sourceTree = "<group>"; };
-		1C92B3FD259C768D0036E74F /* HiScrollViewPropertyVertical.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HiScrollViewPropertyVertical.h; sourceTree = "<group>"; };
-		1C92B3FE259C768D0036E74F /* HiScrollViewPropertyVertical.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HiScrollViewPropertyVertical.m; sourceTree = "<group>"; };
-		1C92B401259C76AA0036E74F /* HiScrollViewPropertyHorizontal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HiScrollViewPropertyHorizontal.h; sourceTree = "<group>"; };
-		1C92B402259C76AA0036E74F /* HiScrollViewPropertyHorizontal.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HiScrollViewPropertyHorizontal.m; sourceTree = "<group>"; };
-		1C92B405259C80300036E74F /* HiScrollViewHorizontal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HiScrollViewHorizontal.h; sourceTree = "<group>"; };
-		1C92B406259C80300036E74F /* HiScrollViewHorizontal.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HiScrollViewHorizontal.m; sourceTree = "<group>"; };
-		1C92B40A259C86210036E74F /* HiScrollViewDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HiScrollViewDefine.h; sourceTree = "<group>"; };
-		1C92B40B259C86210036E74F /* HiScrollViewDefine.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HiScrollViewDefine.m; sourceTree = "<group>"; };
 		1CC1A0802599FF8C007F8F8B /* UIScrollView+MJRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+MJRefresh.m"; sourceTree = "<group>"; };
 		1CC1A0812599FF8C007F8F8B /* MJRefreshConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJRefreshConst.m; sourceTree = "<group>"; };
 		1CC1A0822599FF8C007F8F8B /* UIScrollView+MJExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+MJExtension.h"; sourceTree = "<group>"; };
@@ -121,8 +105,24 @@
 		1CC1A0AB2599FF8C007F8F8B /* MJRefreshComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJRefreshComponent.m; sourceTree = "<group>"; };
 		1CC1A0AC2599FF8C007F8F8B /* MJRefreshFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshFooter.h; sourceTree = "<group>"; };
 		1CC1A0AD2599FF8C007F8F8B /* MJRefreshBackFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshBackFooter.h; sourceTree = "<group>"; };
-		1CFABDEF259375D2006D022E /* HiScrollView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HiScrollView.h; sourceTree = "<group>"; };
-		1CFABDF0259375D2006D022E /* HiScrollView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HiScrollView.m; sourceTree = "<group>"; };
+		1CDB2C5B25A2EE4200802FC4 /* HiScrollViewDefine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HiScrollViewDefine.m; sourceTree = "<group>"; };
+		1CDB2C5C25A2EE4200802FC4 /* HiScrollViewDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HiScrollViewDefine.h; sourceTree = "<group>"; };
+		1CDB2C5E25A2EE4200802FC4 /* HiScrollObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HiScrollObject.m; sourceTree = "<group>"; };
+		1CDB2C5F25A2EE4200802FC4 /* HiScrollObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HiScrollObject.h; sourceTree = "<group>"; };
+		1CDB2C6125A2EE4200802FC4 /* HiScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HiScrollView.m; sourceTree = "<group>"; };
+		1CDB2C6225A2EE4200802FC4 /* HiScrollViewPublic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HiScrollViewPublic.m; sourceTree = "<group>"; };
+		1CDB2C6325A2EE4200802FC4 /* HiScrollViewPublic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HiScrollViewPublic.h; sourceTree = "<group>"; };
+		1CDB2C6425A2EE4200802FC4 /* HiScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HiScrollView.h; sourceTree = "<group>"; };
+		1CDB2C6625A2EE4200802FC4 /* HiScrollViewPrivate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HiScrollViewPrivate.m; sourceTree = "<group>"; };
+		1CDB2C6825A2EE4200802FC4 /* HiScrollViewHorizontal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HiScrollViewHorizontal.h; sourceTree = "<group>"; };
+		1CDB2C6925A2EE4200802FC4 /* HiScrollViewPropertyHorizontal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HiScrollViewPropertyHorizontal.m; sourceTree = "<group>"; };
+		1CDB2C6A25A2EE4200802FC4 /* HiScrollViewHorizontal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HiScrollViewHorizontal.m; sourceTree = "<group>"; };
+		1CDB2C6B25A2EE4200802FC4 /* HiScrollViewPropertyHorizontal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HiScrollViewPropertyHorizontal.h; sourceTree = "<group>"; };
+		1CDB2C6C25A2EE4200802FC4 /* HiScrollViewPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HiScrollViewPrivate.h; sourceTree = "<group>"; };
+		1CDB2C6E25A2EE4200802FC4 /* HiScrollViewPropertyVertical.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HiScrollViewPropertyVertical.h; sourceTree = "<group>"; };
+		1CDB2C6F25A2EE4200802FC4 /* HiScrollViewVertical.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HiScrollViewVertical.h; sourceTree = "<group>"; };
+		1CDB2C7025A2EE4200802FC4 /* HiScrollViewPropertyVertical.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HiScrollViewPropertyVertical.m; sourceTree = "<group>"; };
+		1CDB2C7125A2EE4200802FC4 /* HiScrollViewVertical.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HiScrollViewVertical.m; sourceTree = "<group>"; };
 		1CFABE172595CE2B006D022E /* DynamicItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DynamicItem.h; sourceTree = "<group>"; };
 		1CFABE182595CE2B006D022E /* DynamicItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DynamicItem.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -157,8 +157,8 @@
 		1C764A252588E3AF002BDDB8 /* ScrollTest */ = {
 			isa = PBXGroup;
 			children = (
+				1CDB2C5925A2EE4200802FC4 /* hiScroll */,
 				1CC1A07F2599FF8C007F8F8B /* MJRefresh */,
-				1CFABDEE259375BE006D022E /* hiScroll */,
 				1C764A262588E3AF002BDDB8 /* AppDelegate.h */,
 				1C764A272588E3AF002BDDB8 /* AppDelegate.m */,
 				1C764A292588E3AF002BDDB8 /* SceneDelegate.h */,
@@ -178,68 +178,6 @@
 				1CFABE182595CE2B006D022E /* DynamicItem.m */,
 			);
 			path = ScrollTest;
-			sourceTree = "<group>";
-		};
-		1C92B409259C860D0036E74F /* define */ = {
-			isa = PBXGroup;
-			children = (
-				1C92B40A259C86210036E74F /* HiScrollViewDefine.h */,
-				1C92B40B259C86210036E74F /* HiScrollViewDefine.m */,
-			);
-			path = define;
-			sourceTree = "<group>";
-		};
-		1C92B40F259C86D10036E74F /* private */ = {
-			isa = PBXGroup;
-			children = (
-				1C92B3F8259C72940036E74F /* HiScrollViewPrivate.h */,
-				1C92B3F9259C72940036E74F /* HiScrollViewPrivate.m */,
-				1C92B412259C86F20036E74F /* horizontal */,
-				1C92B411259C86EB0036E74F /* vertical */,
-			);
-			path = private;
-			sourceTree = "<group>";
-		};
-		1C92B411259C86EB0036E74F /* vertical */ = {
-			isa = PBXGroup;
-			children = (
-				1C92B3FD259C768D0036E74F /* HiScrollViewPropertyVertical.h */,
-				1C92B3FE259C768D0036E74F /* HiScrollViewPropertyVertical.m */,
-				1C92B3F4259C71830036E74F /* HiScrollViewVertical.h */,
-				1C92B3F5259C71830036E74F /* HiScrollViewVertical.m */,
-			);
-			path = vertical;
-			sourceTree = "<group>";
-		};
-		1C92B412259C86F20036E74F /* horizontal */ = {
-			isa = PBXGroup;
-			children = (
-				1C92B405259C80300036E74F /* HiScrollViewHorizontal.h */,
-				1C92B406259C80300036E74F /* HiScrollViewHorizontal.m */,
-				1C92B401259C76AA0036E74F /* HiScrollViewPropertyHorizontal.h */,
-				1C92B402259C76AA0036E74F /* HiScrollViewPropertyHorizontal.m */,
-			);
-			path = horizontal;
-			sourceTree = "<group>";
-		};
-		1C92B413259C870A0036E74F /* public */ = {
-			isa = PBXGroup;
-			children = (
-				1CFABDEF259375D2006D022E /* HiScrollView.h */,
-				1CFABDF0259375D2006D022E /* HiScrollView.m */,
-				1C29C8F1259B22BB00218822 /* HiScrollViewPublic.h */,
-				1C29C8F2259B22BB00218822 /* HiScrollViewPublic.m */,
-			);
-			path = public;
-			sourceTree = "<group>";
-		};
-		1C92B415259C87510036E74F /* other */ = {
-			isa = PBXGroup;
-			children = (
-				1C29C8E9259B204000218822 /* HiScrollObject.h */,
-				1C29C8EA259B204000218822 /* HiScrollObject.m */,
-			);
-			path = other;
 			sourceTree = "<group>";
 		};
 		1CC1A07F2599FF8C007F8F8B /* MJRefresh */ = {
@@ -337,15 +275,77 @@
 			path = Base;
 			sourceTree = "<group>";
 		};
-		1CFABDEE259375BE006D022E /* hiScroll */ = {
+		1CDB2C5925A2EE4200802FC4 /* hiScroll */ = {
 			isa = PBXGroup;
 			children = (
-				1C92B415259C87510036E74F /* other */,
-				1C92B413259C870A0036E74F /* public */,
-				1C92B40F259C86D10036E74F /* private */,
-				1C92B409259C860D0036E74F /* define */,
+				1CDB2C5A25A2EE4200802FC4 /* define */,
+				1CDB2C5D25A2EE4200802FC4 /* other */,
+				1CDB2C6025A2EE4200802FC4 /* public */,
+				1CDB2C6525A2EE4200802FC4 /* private */,
 			);
 			path = hiScroll;
+			sourceTree = "<group>";
+		};
+		1CDB2C5A25A2EE4200802FC4 /* define */ = {
+			isa = PBXGroup;
+			children = (
+				1CDB2C5C25A2EE4200802FC4 /* HiScrollViewDefine.h */,
+				1CDB2C5B25A2EE4200802FC4 /* HiScrollViewDefine.m */,
+			);
+			path = define;
+			sourceTree = "<group>";
+		};
+		1CDB2C5D25A2EE4200802FC4 /* other */ = {
+			isa = PBXGroup;
+			children = (
+				1CDB2C5F25A2EE4200802FC4 /* HiScrollObject.h */,
+				1CDB2C5E25A2EE4200802FC4 /* HiScrollObject.m */,
+			);
+			path = other;
+			sourceTree = "<group>";
+		};
+		1CDB2C6025A2EE4200802FC4 /* public */ = {
+			isa = PBXGroup;
+			children = (
+				1CDB2C6425A2EE4200802FC4 /* HiScrollView.h */,
+				1CDB2C6125A2EE4200802FC4 /* HiScrollView.m */,
+				1CDB2C6325A2EE4200802FC4 /* HiScrollViewPublic.h */,
+				1CDB2C6225A2EE4200802FC4 /* HiScrollViewPublic.m */,
+			);
+			path = public;
+			sourceTree = "<group>";
+		};
+		1CDB2C6525A2EE4200802FC4 /* private */ = {
+			isa = PBXGroup;
+			children = (
+				1CDB2C6C25A2EE4200802FC4 /* HiScrollViewPrivate.h */,
+				1CDB2C6625A2EE4200802FC4 /* HiScrollViewPrivate.m */,
+				1CDB2C6725A2EE4200802FC4 /* horizontal */,
+				1CDB2C6D25A2EE4200802FC4 /* vertical */,
+			);
+			path = private;
+			sourceTree = "<group>";
+		};
+		1CDB2C6725A2EE4200802FC4 /* horizontal */ = {
+			isa = PBXGroup;
+			children = (
+				1CDB2C6825A2EE4200802FC4 /* HiScrollViewHorizontal.h */,
+				1CDB2C6A25A2EE4200802FC4 /* HiScrollViewHorizontal.m */,
+				1CDB2C6B25A2EE4200802FC4 /* HiScrollViewPropertyHorizontal.h */,
+				1CDB2C6925A2EE4200802FC4 /* HiScrollViewPropertyHorizontal.m */,
+			);
+			path = horizontal;
+			sourceTree = "<group>";
+		};
+		1CDB2C6D25A2EE4200802FC4 /* vertical */ = {
+			isa = PBXGroup;
+			children = (
+				1CDB2C6E25A2EE4200802FC4 /* HiScrollViewPropertyVertical.h */,
+				1CDB2C7025A2EE4200802FC4 /* HiScrollViewPropertyVertical.m */,
+				1CDB2C6F25A2EE4200802FC4 /* HiScrollViewVertical.h */,
+				1CDB2C7125A2EE4200802FC4 /* HiScrollViewVertical.m */,
+			);
+			path = vertical;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -423,36 +423,36 @@
 				1CC1A0B82599FF8C007F8F8B /* MJRefreshAutoGifFooter.m in Sources */,
 				1C764A2E2588E3AF002BDDB8 /* ViewController.m in Sources */,
 				1CC1A0BC2599FF8C007F8F8B /* MJRefreshGifHeader.m in Sources */,
-				1C29C8F3259B22BB00218822 /* HiScrollViewPublic.m in Sources */,
+				1CDB2C7925A2EE4200802FC4 /* HiScrollViewPropertyVertical.m in Sources */,
 				1CC1A0C02599FF8C007F8F8B /* MJRefreshAutoFooter.m in Sources */,
 				1C764A282588E3AF002BDDB8 /* AppDelegate.m in Sources */,
 				1CC1A0BF2599FF8C007F8F8B /* MJRefreshBackFooter.m in Sources */,
 				1CC1A0C12599FF8C007F8F8B /* MJRefreshComponent.m in Sources */,
-				1C92B403259C76AA0036E74F /* HiScrollViewPropertyHorizontal.m in Sources */,
+				1CDB2C7225A2EE4200802FC4 /* HiScrollViewDefine.m in Sources */,
+				1CDB2C7725A2EE4200802FC4 /* HiScrollViewPropertyHorizontal.m in Sources */,
 				1CC1A0BB2599FF8C007F8F8B /* MJRefreshStateHeader.m in Sources */,
-				1C92B407259C80300036E74F /* HiScrollViewHorizontal.m in Sources */,
-				1C92B3F6259C71830036E74F /* HiScrollViewVertical.m in Sources */,
-				1C92B3FA259C72940036E74F /* HiScrollViewPrivate.m in Sources */,
 				1CC1A0B92599FF8C007F8F8B /* MJRefreshAutoNormalFooter.m in Sources */,
+				1CDB2C7825A2EE4200802FC4 /* HiScrollViewHorizontal.m in Sources */,
+				1CDB2C7425A2EE4200802FC4 /* HiScrollView.m in Sources */,
+				1CDB2C7625A2EE4200802FC4 /* HiScrollViewPrivate.m in Sources */,
 				1CC1A0B72599FF8C007F8F8B /* MJRefreshAutoStateFooter.m in Sources */,
-				1CFABDF1259375D2006D022E /* HiScrollView.m in Sources */,
-				1C92B40C259C86210036E74F /* HiScrollViewDefine.m in Sources */,
 				1CC1A0BE2599FF8C007F8F8B /* MJRefreshHeader.m in Sources */,
 				1CC1A0B22599FF8C007F8F8B /* NSBundle+MJRefresh.m in Sources */,
 				1CC1A0B12599FF8C007F8F8B /* UIScrollView+MJExtension.m in Sources */,
 				1C8082A0259F07AC0030556B /* VerticalViewController.m in Sources */,
+				1CDB2C7A25A2EE4200802FC4 /* HiScrollViewVertical.m in Sources */,
 				1CC1A0B52599FF8C007F8F8B /* MJRefreshBackStateFooter.m in Sources */,
 				1CC1A0B42599FF8C007F8F8B /* MJRefreshBackGifFooter.m in Sources */,
 				1CC1A0AE2599FF8C007F8F8B /* UIScrollView+MJRefresh.m in Sources */,
 				1CC1A0B32599FF8C007F8F8B /* UIView+MJExtension.m in Sources */,
-				1C92B3FF259C768D0036E74F /* HiScrollViewPropertyVertical.m in Sources */,
 				1C8082A4259F07CE0030556B /* HorizontalViewController.m in Sources */,
+				1CDB2C7325A2EE4200802FC4 /* HiScrollObject.m in Sources */,
 				1CC1A0AF2599FF8C007F8F8B /* MJRefreshConst.m in Sources */,
+				1CDB2C7525A2EE4200802FC4 /* HiScrollViewPublic.m in Sources */,
 				1CFABE192595CE2B006D022E /* DynamicItem.m in Sources */,
 				1C764A392588E3B1002BDDB8 /* main.m in Sources */,
 				1C764A2B2588E3AF002BDDB8 /* SceneDelegate.m in Sources */,
 				1CC1A0BA2599FF8C007F8F8B /* MJRefreshNormalHeader.m in Sources */,
-				1C29C8EB259B204000218822 /* HiScrollObject.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
