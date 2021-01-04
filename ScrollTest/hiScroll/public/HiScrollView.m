@@ -94,9 +94,9 @@ static inline HiScrollNode * hi_nodesSort(HiScrollNode *head, BOOL revert, HiScr
         case UIGestureRecognizerStateEnded:
         {
             [self.timer destroyTimer];
+            self.actionScrollView.hi_draggin = false;
             BOOL outside = [self.actionScrollView overSizeWithDirection:self.scrollDirection];
             if (!self.available && !outside) return;
-            self.actionScrollView.hi_draggin = false;
 
             if (outside) {
                 [self resetScrollView];
