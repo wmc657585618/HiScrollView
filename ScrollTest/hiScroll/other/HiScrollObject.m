@@ -105,6 +105,7 @@
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:nil action:nil];
     tap.delegate = self;
     [view addGestureRecognizer:tap];
+    self.addGesture = true;
 }
 
 @end
