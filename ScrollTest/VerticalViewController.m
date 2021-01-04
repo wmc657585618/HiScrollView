@@ -72,17 +72,24 @@ static CGFloat const contentOffset = 140;
     [self.backgroundScrollView addSubview:self.scrollView];
     [self.scrollView addSubview:self.tableView];
     
+    __weak typeof(self) weak = self;
     self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+        __strong typeof(weak) strong = weak;
+        __strong typeof(strong) weak = strong;
         NSLog(@"mj_footer");
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self.tableView.mj_footer  endRefreshing];
+            __strong typeof(weak) strong = weak;
+            [strong.tableView.mj_footer  endRefreshing];
         });
     }];
     
     self.scrollView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        __strong typeof(weak) strong = weak;
+        __strong typeof(strong) weak = strong;
         NSLog(@"mj_header");
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self.scrollView.mj_header  endRefreshing];
+            __strong typeof(weak) strong = weak;
+            [strong.scrollView.mj_header  endRefreshing];
         });
     }];
 }
@@ -114,5 +121,9 @@ static CGFloat const contentOffset = 140;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"didSelectRowAtIndexPath");
+}
+
+- (void)dealloc {
+    NSLog(@"dealloc");
 }
 @end

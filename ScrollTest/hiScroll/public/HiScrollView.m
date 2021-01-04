@@ -185,7 +185,7 @@ static inline HiScrollNode * hi_nodesSort(HiScrollNode *head, BOOL revert, HiScr
 }
 
 /// MARK: - HiScrollGestureDelegate
-- (BOOL)gesture:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch{
+- (void)gesture:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch{
     id view = touch.view;
     HiScrollNode *node1 = [self generateNode];
     HiScrollNode *node2 = [self generateNode];
@@ -215,8 +215,6 @@ static inline HiScrollNode * hi_nodesSort(HiScrollNode *head, BOOL revert, HiScr
         self.leftNode = hi_nodesSort(node1,true,HiScrollViewPropertyLeft);
         self.rightNode = hi_nodesSort(node2, true, HiScrollViewPropertyRight);
     }
-    
-    return YES;
 }
 
 /// MARK: - public
