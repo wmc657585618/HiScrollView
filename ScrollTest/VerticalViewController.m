@@ -90,6 +90,8 @@ static CGFloat const contentOffset = 140;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             __strong typeof(weak) strong = weak;
             [strong.scrollView.mj_header  endRefreshing];
+            
+            NSLog(@"%@",@(strong.tableView.isDragging));
         });
     }];
 }

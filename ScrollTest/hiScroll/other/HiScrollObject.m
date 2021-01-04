@@ -99,6 +99,7 @@
 - (void)addGestureAtView:(UIView *)view {
     if (self.addGesture) return;
     UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panAction:)];
+    pan.cancelsTouchesInView = false;
     [view addGestureRecognizer:pan];
 
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:nil action:nil];
