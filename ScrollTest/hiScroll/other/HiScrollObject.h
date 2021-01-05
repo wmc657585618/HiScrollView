@@ -38,7 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface HiScrollGesture : NSObject<UIGestureRecognizerDelegate>
 
-- (void)addGestureAtView:(UIView *)view;
+- (BOOL)addGestureAtView:(UIView *)view;
 
 @property (nonatomic, weak) id<HiScrollGestureDelegate> delegate;
 

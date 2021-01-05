@@ -219,8 +219,7 @@ static inline HiScrollNode * hi_nodesSort(HiScrollNode *head, BOOL revert, HiScr
 
 /// MARK: - public
 - (void)hi_scrollWithScrollDirection:(HiScrollViewDirection)direction {
-    self.scrollDirection = direction;
-    [self.scrollGesture addGestureAtView:self];
+    if (![self.scrollGesture addGestureAtView:self]) self.scrollDirection = direction;
 }
 
 @end
