@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 @protocol HiScrollGestureDelegate <NSObject>
 @optional
-- (void)gesture:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch;
+- (BOOL)gesture:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch;
 - (void)panGestureRecognizerAction:(UIPanGestureRecognizer *)gestureRecognizer;
 
 @end

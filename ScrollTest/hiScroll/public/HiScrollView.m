@@ -217,14 +217,16 @@ static inline HiScrollNode * hi_nodesSort(HiScrollNode *head, BOOL revert, HiScr
 }
 
 /// MARK: - HiScrollGestureDelegate
-- (void)gesture:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch{
-    id view = touch.view;
+- (BOOL)gesture:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch{
+    UIView *view = touch.view;
     HiScrollNode *node1 = [self generateNode];
     HiScrollNode *node2 = [self generateNode];
 
     while (![view isEqual:self]) {
+        if (view.breakControl) return false;
+        
         if ([view isKindOfClass:UIScrollView.class]) {
-            UIScrollView *scroll = view;
+            UIScrollView *scroll = (UIScrollView *)view;
             if (scroll.hi_scrollEnabled) { // 可以滚动
                 HiScrollNode *_node1 = [scroll generateNode];
                 HiScrollNode *_node2 = [scroll generateNode];
@@ -247,6 +249,8 @@ static inline HiScrollNode * hi_nodesSort(HiScrollNode *head, BOOL revert, HiScr
         self.leftNode = hi_nodesSort(node1,true,HiScrollViewPropertyLeft);
         self.rightNode = hi_nodesSort(node2, true, HiScrollViewPropertyRight);
     }
+    
+    return true;
 }
 
 /// MARK: - public
