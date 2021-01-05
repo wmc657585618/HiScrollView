@@ -222,9 +222,7 @@ static inline HiScrollNode * hi_nodesSort(HiScrollNode *head, BOOL revert, HiScr
     HiScrollNode *node1 = [self generateNode];
     HiScrollNode *node2 = [self generateNode];
 
-    while (![view isEqual:self]) {
-        if (view.breakControl) return false;
-        
+    while (![view isEqual:self]) {        
         if ([view isKindOfClass:UIScrollView.class]) {
             UIScrollView *scroll = (UIScrollView *)view;
             if (scroll.hi_scrollEnabled) { // 可以滚动

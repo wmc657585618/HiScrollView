@@ -33,9 +33,4 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface UIView (HiScrollView)
-
-@property (nonatomic, assign) BOOL breakControl; // 有自己的事件
-
-@end
 NS_ASSUME_NONNULL_END
