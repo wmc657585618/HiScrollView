@@ -61,6 +61,38 @@ static inline HiScrollNode * hi_nodesSort(HiScrollNode *head, BOOL revert, HiScr
 
 @implementation UIScrollView (HiScrollView)
 
+- (void)changeNode:(HiScrollNode *)scrollNode draggin:(BOOL)draggin{
+    
+    HiScrollNode *node = scrollNode;
+    while (node) {
+        node.object.hi_draggin = draggin;
+        node = node.nextNode;
+    }
+}
+
+
+- (void)changeDraggin {
+    switch (self.scrollDirection) {
+        case HiScrollViewDirectionVertical:
+            [self changeNode:self.topNode draggin:true];
+            break;
+        case HiScrollViewDirectionHorizontal:
+            [self changeNode:self.leftNode draggin:true];
+            break;
+    }
+}
+
+- (void)resetDraggin {
+    switch (self.scrollDirection) {
+        case HiScrollViewDirectionVertical:
+            [self changeNode:self.topNode draggin:false];
+            break;
+        case HiScrollViewDirectionHorizontal:
+            [self changeNode:self.leftNode draggin:false];
+            break;
+    }
+}
+
 /// MARK:- 容器调用的方法
 - (void)panGestureRecognizerAction:(UIPanGestureRecognizer *)recognizer {
     
@@ -73,8 +105,11 @@ static inline HiScrollNode * hi_nodesSort(HiScrollNode *head, BOOL revert, HiScr
             break;
             
         case UIGestureRecognizerStateBegan:
+        {
+            [self changeDraggin];
             // 移除 动画
             [self.animator removeAllBehaviors];
+        }
             break;
             
         case UIGestureRecognizerStateChanged:
@@ -82,18 +117,14 @@ static inline HiScrollNode * hi_nodesSort(HiScrollNode *head, BOOL revert, HiScr
             // 往上滑为负数，往下滑为正数
             CGPoint offset = [recognizer translationInView:self.superview];
             [self checkAvailable];
-            UIScrollView *actionScrollView = [self controlScrollWithOffset:offset];
-            if (![actionScrollView isEqual:self.actionScrollView]) {
-                self.actionScrollView.hi_draggin = false;// 重置
-                self.actionScrollView = actionScrollView;
-            }
-            self.actionScrollView.hi_draggin = true;
+            [self controlScrollWithOffset:offset];
         }
             break;
             
         case UIGestureRecognizerStateEnded:
         {
             [self.timer destroyTimer];
+            [self resetDraggin];
             self.actionScrollView.hi_draggin = false;
             BOOL outside = [self.actionScrollView overSizeWithDirection:self.scrollDirection];
             if (!self.available && !outside) return;
@@ -159,14 +190,15 @@ static inline HiScrollNode * hi_nodesSort(HiScrollNode *head, BOOL revert, HiScr
 
 /// MARK: 控制滚动
 /// 控制垂直滚动的方法
-/// @return 当前响应的 scroll view
-- (UIScrollView *)controlScrollWithOffset:(CGPoint)offset {
+- (void)controlScrollWithOffset:(CGPoint)offset {
     switch (self.scrollDirection) {
         case HiScrollViewDirectionVertical:
-            return [self controlScrollForVertical:offset.y state:UIGestureRecognizerStateChanged];
+            [self controlScrollForVertical:offset.y state:UIGestureRecognizerStateChanged];
+            break;
             
         case HiScrollViewDirectionHorizontal:
-            return [self controlScrollForHorizontal:offset.x state:UIGestureRecognizerStateChanged];
+            [self controlScrollForHorizontal:offset.x state:UIGestureRecognizerStateChanged];
+            break;
     }
 }
 

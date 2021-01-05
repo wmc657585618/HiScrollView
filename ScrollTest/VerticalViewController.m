@@ -13,6 +13,7 @@
 
 @property (nonatomic, strong) UIScrollView *backgroundScrollView;
 @property (nonatomic, strong) UIScrollView *scrollView;
+@property (nonatomic, strong) UIScrollView *scrollView1;
 @property (nonatomic, strong) UITableView *tableView;
 
 @end
@@ -60,6 +61,13 @@ static CGFloat const contentOffset = 140;
     return _tableView;
 }
 
+- (UIScrollView *)scrollView1 {
+    if (!_scrollView1) {
+        _scrollView1 = [[UIScrollView alloc] init];
+    }
+    return _scrollView1;
+}
+
 - (void)viewDidLoad {
 
     [super viewDidLoad];
@@ -70,8 +78,9 @@ static CGFloat const contentOffset = 140;
 
     [self.view addSubview:self.backgroundScrollView];
     [self.backgroundScrollView addSubview:self.scrollView];
-    [self.scrollView addSubview:self.tableView];
-    
+    [self.scrollView addSubview:self.scrollView1];
+    [self.scrollView1 addSubview:self.tableView];
+
     __weak typeof(self) weak = self;
     self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
         __strong typeof(weak) strong = weak;
@@ -104,12 +113,17 @@ static CGFloat const contentOffset = 140;
     self.scrollView.frame = frame;
     
     CGFloat margin = 44;
-    self.tableView.frame = CGRectMake(0, margin, self.view.frame.size.width, self.view.frame.size.height - margin);
+    self.tableView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - margin);
+    self.scrollView1.frame = CGRectMake(0, margin, self.view.frame.size.width, self.view.frame.size.height - margin);
 }
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 6;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 100;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

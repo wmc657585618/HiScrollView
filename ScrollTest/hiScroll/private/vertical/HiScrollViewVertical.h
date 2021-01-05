@@ -12,8 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface UIScrollView (HiScrollViewVertical)
 
 /// 控制垂直滚动的方法
-/// @return 当前响应的 scroll view
-- (UIScrollView *)controlScrollForVertical:(CGFloat)offset state:(UIGestureRecognizerState)state;
+- (void)controlScrollForVertical:(CGFloat)offset state:(UIGestureRecognizerState)state;
 
 /* 在垂直方向上可以处理滚动 */
 - (BOOL)canChangeVerticalOffset:(CGFloat)offset size:(CGFloat)size;

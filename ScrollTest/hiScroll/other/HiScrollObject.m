@@ -86,7 +86,7 @@
     if ([self.delegate respondsToSelector:@selector(gesture:shouldReceiveTouch:)]) {
         [self.delegate gesture:gestureRecognizer shouldReceiveTouch:touch];
     }
-    return false;
+    return true;
 }
 
 - (void)panAction:(UIPanGestureRecognizer *)gestureRecognizer {
@@ -99,12 +99,12 @@
 - (BOOL)addGestureAtView:(UIView *)view {
     if (self.addGesture) return true;
     UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panAction:)];
-    pan.cancelsTouchesInView = false; // 事件冲突
-    pan.delaysTouchesBegan = true;
     [view addGestureRecognizer:pan];
 
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:nil action:nil];
     tap.delegate = self;
+    tap.cancelsTouchesInView = false; // 事件冲突
+
     [view addGestureRecognizer:tap];
     self.addGesture = true;
     return false;
