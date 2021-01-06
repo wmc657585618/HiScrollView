@@ -7,6 +7,8 @@
 
 #import "HiScrollViewPrivate.h"
 #import "HiScrollViewPublic.h"
+#import "HiScrollViewPropertyHorizontal.h"
+#import "HiScrollViewPropertyVertical.h"
 #import <objc/runtime.h>
 
 // 来自网络
@@ -106,17 +108,6 @@ inline CGFloat hi_rubberBandDistance(CGFloat offset, CGFloat dimension) {
 
 - (BOOL)scrollRight {
     return self.contentOffset.x == self.maxHorizontalRight - self.frame.size.width;
-}
-
-- (void)setHi_state:(UIGestureRecognizerState)hi_state {
-    SEL key = @selector(hi_state);
-    objc_setAssociatedObject(self, key, [NSNumber numberWithInteger:hi_state], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-- (UIGestureRecognizerState)hi_state {
-    SEL key = @selector(hi_state);
-    NSNumber *value = objc_getAssociatedObject(self, key);
-    return [value integerValue];
 }
 
 - (BOOL)scrollDirectTop {
@@ -260,8 +251,19 @@ inline CGFloat hi_rubberBandDistance(CGFloat offset, CGFloat dimension) {
     }
 }
 
-- (void)updateContentOffset:(CGPoint)contentOffset {
-    if (self.hi_scrollEnabled) self.contentOffset = contentOffset;
+- (void)updateContentOffset:(CGPoint)contentOffset direction:(HiScrollViewDirection)direction{
+    if (self.hi_scrollEnabled) {
+        CGPoint point = self.contentOffset;
+        switch (direction) {
+            case HiScrollViewDirectionVertical:
+                point.y = contentOffset.y;
+                break;
+            case HiScrollViewDirectionHorizontal:
+                point.x = contentOffset.x;
+                break;
+        }
+        self.contentOffset = point;
+    }
 }
 
 // 弹簧系数
@@ -434,7 +436,7 @@ inline CGFloat hi_rubberBandDistance(CGFloat offset, CGFloat dimension) {
     }
 
     CGPoint point = HiScrollViewDirectionVertical == directon ? CGPointMake(0, target): CGPointMake(target, 0);
-    [self updateContentOffset:point];
+    [self updateContentOffset:point direction:directon];
     
     return res;
 }

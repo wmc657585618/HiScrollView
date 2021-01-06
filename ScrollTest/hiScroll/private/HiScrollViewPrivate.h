@@ -7,8 +7,6 @@
 
 #import <UIKit/UIKit.h>
 #import "HiScrollObject.h"
-#import "HiScrollViewPropertyHorizontal.h"
-#import "HiScrollViewPropertyVertical.h"
 #import "HiScrollViewDefine.h"
 
 typedef enum : NSUInteger {
@@ -51,8 +49,6 @@ extern CGFloat hi_rubberBandDistance(CGFloat offset, CGFloat dimension);
 @property (nonatomic, assign, readonly) BOOL scrollLeft;
 @property (nonatomic, assign, readonly) BOOL scrollRight;
 
-@property (nonatomic, assign) UIGestureRecognizerState hi_state;
-
 @property (nonatomic, assign, readonly) BOOL scrollDirectTop;// 可以向上滚动
 @property (nonatomic, assign, readonly) BOOL scrollDirectBottom;
 @property (nonatomic, assign, readonly) BOOL scrollDirectLeft;
@@ -67,7 +63,7 @@ extern CGFloat hi_rubberBandDistance(CGFloat offset, CGFloat dimension);
 
 - (NSInteger)hi_propertyForDirection:(HiScrollViewProperty)direction;
 
-- (void)updateContentOffset:(CGPoint)contentOffset;
+- (void)updateContentOffset:(CGPoint)contentOffset direction:(HiScrollViewDirection)direction;
 
 - (CGFloat)springWithVerticalOffset:(CGFloat)offset;
 - (CGFloat)springWithHorizontalOffset:(CGFloat)offset;

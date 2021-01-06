@@ -105,7 +105,6 @@ static inline HiScrollNode * hi_nodesSort(HiScrollNode *head, BOOL revert, HiScr
 /// 手势
 - (void)panGestureRecognizerAction:(UIPanGestureRecognizer *)recognizer {
     
-    self.hi_state = recognizer.state;
     switch (recognizer.state) {
             
         case UIGestureRecognizerStatePossible:
