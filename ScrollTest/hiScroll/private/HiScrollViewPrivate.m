@@ -474,9 +474,27 @@ inline CGFloat hi_rubberBandDistance(CGFloat offset, CGFloat dimension) {
     return actionScrollView;
 }
 
+- (HiScrollNode *)minNode {
+    switch (self.scrollDirection) {
+        case HiScrollViewDirectionVertical:
+            return self.topNode;
+        case HiScrollViewDirectionHorizontal:
+            return self.leftNode;
+    }
+}
+
+- (HiScrollNode *)maxNode {
+    switch (self.scrollDirection) {
+        case HiScrollViewDirectionVertical:
+            return self.bottomNode;
+        case HiScrollViewDirectionHorizontal:
+            return self.rightNode;
+    }
+}
+
 /// MARK: 可以响应事件的 scroll view
 - (UIScrollView *)actionScrollViewWithOffset:(CGFloat)offset size:(CGFloat)size {
-    HiScrollNode *node = offset < 0 ? self.topNode : self.bottomNode;
+    HiScrollNode *node = offset < 0 ? [self minNode] : [self maxNode];
     while (node && ![node.object canChangeOffset:offset size:size direction:self.scrollDirection]) {
         node = node.nextNode;
     }
