@@ -83,30 +83,4 @@
     return [value integerValue];
 }
 
-- (void)setHi_refresh:(BOOL)hi_refresh {
-    SEL key = @selector(hi_refresh);
-    objc_setAssociatedObject(self, key, [NSNumber numberWithBool:hi_refresh], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-- (BOOL)hi_refresh {
-    SEL key = @selector(hi_refresh);
-    NSNumber *value = objc_getAssociatedObject(self, key);
-    return [value boolValue];
-}
-
-@end
-
-@implementation UIView (HiScrollView)
-
-- (void)setBreakControl:(BOOL)breakControl {
-    SEL key = @selector(breakControl);
-    objc_setAssociatedObject(self, key, [NSNumber numberWithBool:breakControl], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-- (BOOL)breakControl {
-    SEL key = @selector(breakControl);
-    NSNumber *value = objc_getAssociatedObject(self, key);
-    return [value boolValue];
-}
-
 @end

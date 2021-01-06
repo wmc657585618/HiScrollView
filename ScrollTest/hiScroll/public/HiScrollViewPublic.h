@@ -29,7 +29,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSInteger bottomProperty;
 @property (nonatomic, assign) NSInteger leftProperty;
 @property (nonatomic, assign) NSInteger rightProperty;
-@property (nonatomic, assign) BOOL hi_refresh;// 支持刷新 default is NO.
 
 @end
 

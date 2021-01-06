@@ -324,7 +324,7 @@ inline CGFloat hi_rubberBandDistance(CGFloat offset, CGFloat dimension) {
 }
 
 - (BOOL)_isDragging {
-    if (self.hi_refresh) return self.hi_draggin;
+    if (self.hi_scrollEnabled) return self.hi_draggin;
     return [self _isDragging];
 }
 

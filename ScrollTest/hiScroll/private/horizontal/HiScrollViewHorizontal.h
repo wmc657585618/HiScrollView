@@ -12,8 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface UIScrollView (HiScrollViewHorizontal)
 
 /// 控制滚动的方法
-/// @return 当前响应的 scroll view
-- (UIScrollView *)controlScrollForHorizontal:(CGFloat)offset state:(UIGestureRecognizerState)state;
+- (void)controlScrollForHorizontal:(CGFloat)offset state:(UIGestureRecognizerState)state;
 - (UIDynamicItemBehavior *)addInertialBehaviorWithHorizontalVelocity:(CGFloat)velocity;
 - (void)resetHorizontalScrollView:(UIScrollView *)scrollView;
 

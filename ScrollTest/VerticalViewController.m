@@ -41,7 +41,6 @@ static CGFloat const contentOffset = 140;
         _scrollView.hi_scrollEnabled = true;
         _scrollView.topProperty = 100;
         _scrollView.bottomProperty = 10;
-        _scrollView.hi_refresh = true;
         _scrollView.bouncesInsets = HiBouncesInsetsMake(true, false, false, false);
     }
     return _scrollView;
@@ -55,7 +54,6 @@ static CGFloat const contentOffset = 140;
         _tableView.hi_scrollEnabled = true;
         _tableView.topProperty = 10;
         _tableView.bottomProperty = 1000;
-        _tableView.hi_refresh = true;
         _tableView.bouncesInsets = HiBouncesInsetsMake(false, false, true, false);
     }
     return _tableView;

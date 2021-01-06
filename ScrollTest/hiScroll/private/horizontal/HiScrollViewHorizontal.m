@@ -12,12 +12,10 @@
 @implementation UIScrollView (HiScrollViewHorizontal)
 
 /// MARK: 控制上下滚动的方法
-- (UIScrollView *)controlScrollForHorizontal:(CGFloat)offset state:(UIGestureRecognizerState)state{
+- (void)controlScrollForHorizontal:(CGFloat)offset state:(UIGestureRecognizerState)state{
     
-    UIScrollView *scrollView = [self changeHorizontalOffset:offset];
+    self.actionScrollView = [self changeHorizontalOffset:offset];
     if (UIGestureRecognizerStateEnded == state) [self resetHorizontalScrollView:self.actionScrollView];
-    
-    return scrollView;
 }
 
 /// MARK: 改变 offset
@@ -107,7 +105,7 @@
         // 得到每次移动的距离
         CGFloat current = strong.dynamicItem.center.x - lastCenter.x;
         // 更新 actionScrollView
-        strong.actionScrollView = [strong controlScrollForHorizontal:current state:UIGestureRecognizerStateEnded];
+        [strong controlScrollForHorizontal:current state:UIGestureRecognizerStateEnded];
         lastCenter = strong.dynamicItem.center;
     };
     return inertialBehavior;
