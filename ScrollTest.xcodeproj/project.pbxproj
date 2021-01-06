@@ -42,9 +42,7 @@
 		1CDB2C7525A2EE4200802FC4 /* HiScrollViewPublic.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDB2C6225A2EE4200802FC4 /* HiScrollViewPublic.m */; };
 		1CDB2C7625A2EE4200802FC4 /* HiScrollViewPrivate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDB2C6625A2EE4200802FC4 /* HiScrollViewPrivate.m */; };
 		1CDB2C7725A2EE4200802FC4 /* HiScrollViewPropertyHorizontal.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDB2C6925A2EE4200802FC4 /* HiScrollViewPropertyHorizontal.m */; };
-		1CDB2C7825A2EE4200802FC4 /* HiScrollViewHorizontal.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDB2C6A25A2EE4200802FC4 /* HiScrollViewHorizontal.m */; };
 		1CDB2C7925A2EE4200802FC4 /* HiScrollViewPropertyVertical.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDB2C7025A2EE4200802FC4 /* HiScrollViewPropertyVertical.m */; };
-		1CDB2C7A25A2EE4200802FC4 /* HiScrollViewVertical.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDB2C7125A2EE4200802FC4 /* HiScrollViewVertical.m */; };
 		1CFABE192595CE2B006D022E /* DynamicItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CFABE182595CE2B006D022E /* DynamicItem.m */; };
 /* End PBXBuildFile section */
 
@@ -114,15 +112,11 @@
 		1CDB2C6325A2EE4200802FC4 /* HiScrollViewPublic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HiScrollViewPublic.h; sourceTree = "<group>"; };
 		1CDB2C6425A2EE4200802FC4 /* HiScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HiScrollView.h; sourceTree = "<group>"; };
 		1CDB2C6625A2EE4200802FC4 /* HiScrollViewPrivate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HiScrollViewPrivate.m; sourceTree = "<group>"; };
-		1CDB2C6825A2EE4200802FC4 /* HiScrollViewHorizontal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HiScrollViewHorizontal.h; sourceTree = "<group>"; };
 		1CDB2C6925A2EE4200802FC4 /* HiScrollViewPropertyHorizontal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HiScrollViewPropertyHorizontal.m; sourceTree = "<group>"; };
-		1CDB2C6A25A2EE4200802FC4 /* HiScrollViewHorizontal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HiScrollViewHorizontal.m; sourceTree = "<group>"; };
 		1CDB2C6B25A2EE4200802FC4 /* HiScrollViewPropertyHorizontal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HiScrollViewPropertyHorizontal.h; sourceTree = "<group>"; };
 		1CDB2C6C25A2EE4200802FC4 /* HiScrollViewPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HiScrollViewPrivate.h; sourceTree = "<group>"; };
 		1CDB2C6E25A2EE4200802FC4 /* HiScrollViewPropertyVertical.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HiScrollViewPropertyVertical.h; sourceTree = "<group>"; };
-		1CDB2C6F25A2EE4200802FC4 /* HiScrollViewVertical.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HiScrollViewVertical.h; sourceTree = "<group>"; };
 		1CDB2C7025A2EE4200802FC4 /* HiScrollViewPropertyVertical.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HiScrollViewPropertyVertical.m; sourceTree = "<group>"; };
-		1CDB2C7125A2EE4200802FC4 /* HiScrollViewVertical.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HiScrollViewVertical.m; sourceTree = "<group>"; };
 		1CFABE172595CE2B006D022E /* DynamicItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DynamicItem.h; sourceTree = "<group>"; };
 		1CFABE182595CE2B006D022E /* DynamicItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DynamicItem.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -329,8 +323,6 @@
 		1CDB2C6725A2EE4200802FC4 /* horizontal */ = {
 			isa = PBXGroup;
 			children = (
-				1CDB2C6825A2EE4200802FC4 /* HiScrollViewHorizontal.h */,
-				1CDB2C6A25A2EE4200802FC4 /* HiScrollViewHorizontal.m */,
 				1CDB2C6B25A2EE4200802FC4 /* HiScrollViewPropertyHorizontal.h */,
 				1CDB2C6925A2EE4200802FC4 /* HiScrollViewPropertyHorizontal.m */,
 			);
@@ -342,8 +334,6 @@
 			children = (
 				1CDB2C6E25A2EE4200802FC4 /* HiScrollViewPropertyVertical.h */,
 				1CDB2C7025A2EE4200802FC4 /* HiScrollViewPropertyVertical.m */,
-				1CDB2C6F25A2EE4200802FC4 /* HiScrollViewVertical.h */,
-				1CDB2C7125A2EE4200802FC4 /* HiScrollViewVertical.m */,
 			);
 			path = vertical;
 			sourceTree = "<group>";
@@ -432,7 +422,6 @@
 				1CDB2C7725A2EE4200802FC4 /* HiScrollViewPropertyHorizontal.m in Sources */,
 				1CC1A0BB2599FF8C007F8F8B /* MJRefreshStateHeader.m in Sources */,
 				1CC1A0B92599FF8C007F8F8B /* MJRefreshAutoNormalFooter.m in Sources */,
-				1CDB2C7825A2EE4200802FC4 /* HiScrollViewHorizontal.m in Sources */,
 				1CDB2C7425A2EE4200802FC4 /* HiScrollView.m in Sources */,
 				1CDB2C7625A2EE4200802FC4 /* HiScrollViewPrivate.m in Sources */,
 				1CC1A0B72599FF8C007F8F8B /* MJRefreshAutoStateFooter.m in Sources */,
@@ -440,7 +429,6 @@
 				1CC1A0B22599FF8C007F8F8B /* NSBundle+MJRefresh.m in Sources */,
 				1CC1A0B12599FF8C007F8F8B /* UIScrollView+MJExtension.m in Sources */,
 				1C8082A0259F07AC0030556B /* VerticalViewController.m in Sources */,
-				1CDB2C7A25A2EE4200802FC4 /* HiScrollViewVertical.m in Sources */,
 				1CC1A0B52599FF8C007F8F8B /* MJRefreshBackStateFooter.m in Sources */,
 				1CC1A0B42599FF8C007F8F8B /* MJRefreshBackGifFooter.m in Sources */,
 				1CC1A0AE2599FF8C007F8F8B /* UIScrollView+MJRefresh.m in Sources */,

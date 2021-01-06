@@ -7,8 +7,6 @@
 
 #import "HiScrollView.h"
 #import "HiScrollViewPrivate.h"
-#import "HiScrollViewVertical.h"
-#import "HiScrollViewHorizontal.h"
 #import <objc/runtime.h>
 #import <pthread.h>
 
