@@ -387,6 +387,25 @@ inline CGFloat hi_rubberBandDistance(CGFloat offset, CGFloat dimension) {
     }
 }
 
+- (BOOL)minBounceWithDirection:(HiScrollViewDirection)direction {
+    switch (direction) {
+        case HiScrollViewDirectionVertical:
+            return self.bouncesInsets.top;
+        case HiScrollViewDirectionHorizontal:
+            return self.bouncesInsets.left;
+    }
+}
+
+- (BOOL)maxBounceWithDirection:(HiScrollViewDirection)direction {
+    switch (direction) {
+        case HiScrollViewDirectionVertical:
+            return self.bouncesInsets.bottom;
+        case HiScrollViewDirectionHorizontal:
+            return self.bouncesInsets.right;
+    }
+}
+
+
 /// MARK: 是否可以处理 滚动, 如果可以 处理
 - (BOOL)canChangeOffset:(CGFloat)offset size:(CGFloat)size direction:(HiScrollViewDirection)directon {
     if (!self.hi_scrollEnabled) return false;
@@ -395,7 +414,7 @@ inline CGFloat hi_rubberBandDistance(CGFloat offset, CGFloat dimension) {
     BOOL res = true;
     CGFloat min = [self minOffsetWithDirection:directon];
     if (target < min) {
-        if (self.bouncesInsets.top) {
+        if ([self minBounceWithDirection:directon]) {
             target = [self targetForDirection:directon offset:[self springWithVerticalOffset:hi_rubberBandDistance(offset, size)]];
         } else {
             target = min;
@@ -405,7 +424,7 @@ inline CGFloat hi_rubberBandDistance(CGFloat offset, CGFloat dimension) {
     } else {
         CGFloat maxOffsetSize = [self maxOffsetWithDirection:directon];
         if (target > maxOffsetSize) {
-            if (self.bouncesInsets.bottom) {
+            if ([self maxBounceWithDirection:directon]) {
                 target = [self targetForDirection:directon offset:[self springWithVerticalOffset:hi_rubberBandDistance(offset, size)]];
             } else {
                 target = maxOffsetSize;
@@ -432,12 +451,12 @@ inline CGFloat hi_rubberBandDistance(CGFloat offset, CGFloat dimension) {
 
 
 
-/// 容器调用
+/// MARK: - 容器调用
 /// MARK: 控制上下滚动的方法
 - (void)controlScrollOffset:(CGFloat)offset state:(UIGestureRecognizerState)state {
     
     self.actionScrollView = [self changeOffset:offset];
-    if (UIGestureRecognizerStateEnded == state) [self resetScrollView:self.actionScrollView];
+    if (UIGestureRecognizerStateEnded == state) [self resetScrollView];
 }
 
 /// MARK: 改变 offset
@@ -465,7 +484,8 @@ inline CGFloat hi_rubberBandDistance(CGFloat offset, CGFloat dimension) {
 }
 
 /// MARK: if oversize, resetsize
-- (void)resetScrollView:(UIScrollView *)scrollView {
+- (void)resetScrollView {
+    UIScrollView *scrollView = self.actionScrollView;
     HiScrollViewDirection direction = self.scrollDirection;
     if ([scrollView overSizeWithDirection:direction]) {
         CGPoint target = [self resetPointForDirection:direction];

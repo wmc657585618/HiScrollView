@@ -75,10 +75,6 @@ extern CGFloat hi_rubberBandDistance(CGFloat offset, CGFloat dimension);
 
 - (HiScrollNode *)generateNode;
 
-/// 弹性动画 外部容器调用
-/// @param scrollView 要添加的 scroll
-- (void)springBehaviorWithTarget:(CGPoint)target scrollView:(UIScrollView *)scrollView;
-
 /// 内容不足
 - (BOOL)contentInSizeWithDirection:(HiScrollViewDirection)direction;
 
@@ -88,8 +84,18 @@ extern CGFloat hi_rubberBandDistance(CGFloat offset, CGFloat dimension);
 /// 超出边界
 - (BOOL)overSizeWithDirection:(HiScrollViewDirection)scrollDirection;
 
-/// 结束时添加线性动画
-- (UIDynamicItemBehavior *)addInertialBehaviorWithVelocity:(CGPoint)velocity direction:(HiScrollViewDirection)direction;
+/// 弹性动画 外部容器调用
+/// @param scrollView 要添加的 scroll
+- (void)springBehaviorWithTarget:(CGPoint)target scrollView:(UIScrollView *)scrollView;
+
+/// 控制滚动 外部容器调用
+- (void)controlScrollOffset:(CGFloat)offset state:(UIGestureRecognizerState)state;
+
+/// 添加线性加速 外部容器调用
+- (UIDynamicItemBehavior *)addInertialBehaviorWithVelocity:(CGPoint)velocity;
+
+/// scroll 超出内容区 重置 外部容器调用
+- (void)resetScrollView;
 
 @end
 

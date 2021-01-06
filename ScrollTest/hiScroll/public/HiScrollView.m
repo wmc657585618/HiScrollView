@@ -93,7 +93,18 @@ static inline HiScrollNode * hi_nodesSort(HiScrollNode *head, BOOL revert, HiScr
     }
 }
 
-/// MARK:- 容器调用的方法
+// 加速值
+- (CGFloat)velocityWithValue:(CGFloat)value {
+    CGFloat y = value;
+    
+    static CGFloat _value = 150; // 150 内不加速
+    if (y < 0) y = -y;
+    if (y > 0 && y < _value) value = CGFLOAT_MIN * y / value;
+    
+    return value;
+}
+
+/// 手势
 - (void)panGestureRecognizerAction:(UIPanGestureRecognizer *)recognizer {
     
     self.hi_state = recognizer.state;
@@ -116,8 +127,9 @@ static inline HiScrollNode * hi_nodesSort(HiScrollNode *head, BOOL revert, HiScr
         {
             // 往上滑为负数，往下滑为正数
             CGPoint offset = [recognizer translationInView:self.superview];
+            CGFloat value = HiScrollViewDirectionVertical == self.scrollDirection ? offset.y : offset.x;
             [self checkAvailable];
-            [self controlScrollWithOffset:offset];
+            [self controlScrollOffset:value state:UIGestureRecognizerStateChanged];
         }
             break;
             
@@ -153,67 +165,6 @@ static inline HiScrollNode * hi_nodesSort(HiScrollNode *head, BOOL revert, HiScr
         __strong typeof(weak) strong = weak;
         strong.available = false;
     }];
-}
-
-// 添加线性动画
-- (void)addInertialBehaviorWithVelocity:(CGPoint)velocity {
-    
-    UIDynamicItemBehavior *inertialBehavior = nil;
-    switch (self.scrollDirection) {
-        case HiScrollViewDirectionVertical:
-        {
-            CGFloat value = [self velocityWithValue:velocity.y];
-            inertialBehavior = [self addInertialBehaviorWithVerticalVelocity:value];
-            break;
-        }
-        case HiScrollViewDirectionHorizontal:
-        {
-            CGFloat value = [self velocityWithValue:velocity.x];
-            inertialBehavior = [self addInertialBehaviorWithHorizontalVelocity:value];
-            break;
-        }
-    }
-
-    if (inertialBehavior) [self.animator addBehavior:inertialBehavior];
-}
-
-// 加速值
-- (CGFloat)velocityWithValue:(CGFloat)value {
-    CGFloat y = value;
-    
-    static CGFloat _value = 150; // 150 内不加速
-    if (y < 0) y = -y;
-    if (y > 0 && y < _value) value = CGFLOAT_MIN * y / value;
-    
-    return value;
-}
-
-/// MARK: 控制滚动
-/// 控制垂直滚动的方法
-- (void)controlScrollWithOffset:(CGPoint)offset {
-    switch (self.scrollDirection) {
-        case HiScrollViewDirectionVertical:
-            [self controlScrollForVertical:offset.y state:UIGestureRecognizerStateChanged];
-            break;
-            
-        case HiScrollViewDirectionHorizontal:
-            [self controlScrollForHorizontal:offset.x state:UIGestureRecognizerStateChanged];
-            break;
-    }
-}
-
-// 恢复
-- (void)resetScrollView {
-    
-    switch (self.scrollDirection) {
-        case HiScrollViewDirectionVertical:
-            [self resetVerticalScrollView:self.actionScrollView];
-
-            break;
-        case HiScrollViewDirectionHorizontal:
-            [self resetHorizontalScrollView:self.actionScrollView];
-            break;
-    }
 }
 
 /// MARK: - HiScrollGestureDelegate
