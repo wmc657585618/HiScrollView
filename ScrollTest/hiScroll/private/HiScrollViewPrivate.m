@@ -507,7 +507,7 @@ inline CGFloat hi_rubberBandDistance(CGFloat offset, CGFloat dimension) {
     UIScrollView *scrollView = self.actionScrollView;
     HiScrollViewDirection direction = self.scrollDirection;
     if ([scrollView overSizeWithDirection:direction]) {
-        CGPoint target = [self resetPointForDirection:direction];
+        CGPoint target = [scrollView resetPointForDirection:direction];
         [self springBehaviorWithTarget:target scrollView:scrollView];
     }
 }
@@ -524,7 +524,7 @@ inline CGFloat hi_rubberBandDistance(CGFloat offset, CGFloat dimension) {
         __strong typeof(weak) strong = weak;
         // 得到每次移动的距离
         CGFloat current = 0;
-        if (HiScrollViewDirectionVertical == self.scrollDirection) {
+        if (HiScrollViewDirectionVertical == strong.scrollDirection) {
             current = strong.dynamicItem.center.y - lastCenter.y;
         } else {
             current = strong.dynamicItem.center.x - lastCenter.x;
