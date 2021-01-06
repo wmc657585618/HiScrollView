@@ -251,15 +251,15 @@ inline CGFloat hi_rubberBandDistance(CGFloat offset, CGFloat dimension) {
     }
 }
 
-- (void)updateContentOffset:(CGPoint)contentOffset direction:(HiScrollViewDirection)direction{
+- (void)updateContentOffset:(CGFloat)offset direction:(HiScrollViewDirection)direction{
     if (self.hi_scrollEnabled) {
         CGPoint point = self.contentOffset;
         switch (direction) {
             case HiScrollViewDirectionVertical:
-                point.y = contentOffset.y;
+                point.y = offset;
                 break;
             case HiScrollViewDirectionHorizontal:
-                point.x = contentOffset.x;
+                point.x = offset;
                 break;
         }
         self.contentOffset = point;
@@ -435,8 +435,7 @@ inline CGFloat hi_rubberBandDistance(CGFloat offset, CGFloat dimension) {
         }
     }
 
-    CGPoint point = HiScrollViewDirectionVertical == directon ? CGPointMake(0, target): CGPointMake(target, 0);
-    [self updateContentOffset:point direction:directon];
+    [self updateContentOffset:target direction:directon];
     
     return res;
 }
