@@ -19,6 +19,7 @@ inline CGFloat hi_rubberBandDistance(CGFloat offset, CGFloat dimension) {
 
 @implementation UIScrollView (HiScrollViewPrivate)
 
+/// MARK: - properties
 - (UIDynamicAnimator *)animator {
     SEL key = @selector(animator);
     UIDynamicAnimator *value = objc_getAssociatedObject(self, key);
@@ -107,36 +108,6 @@ inline CGFloat hi_rubberBandDistance(CGFloat offset, CGFloat dimension) {
     return self.contentOffset.x == self.maxHorizontalRight - self.frame.size.width;
 }
 
-- (BOOL)scrollBoundsWithDirction:(HiScrollViewDirection)scrollDirection {
-    switch (scrollDirection) {
-        case HiScrollViewDirectionVertical:
-            return self.scrollTop || self.scrollBottom;
-
-        case HiScrollViewDirectionHorizontal:
-            return self.scrollLeft || self.scrollRight;
-    }
-}
-
-- (BOOL)overSizeWithDirection:(HiScrollViewDirection)scrollDirection {
-    switch (scrollDirection) {
-        case HiScrollViewDirectionVertical:
-            return self.overVerticalSize;
-
-        case HiScrollViewDirectionHorizontal:
-            return self.overHorizontalSize;
-    }
-}
-
-- (BOOL)contentInSize {
-    switch (self.scrollDirection) {
-        case HiScrollViewDirectionVertical:
-            return self.maxVerticalBottom < self.frame.size.height;
-
-        case HiScrollViewDirectionHorizontal:
-            return self.maxHorizontalRight < self.frame.size.width;
-    }
-}
-
 - (void)setHi_state:(UIGestureRecognizerState)hi_state {
     SEL key = @selector(hi_state);
     objc_setAssociatedObject(self, key, [NSNumber numberWithInteger:hi_state], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -188,7 +159,6 @@ inline CGFloat hi_rubberBandDistance(CGFloat offset, CGFloat dimension) {
     objc_setAssociatedObject(self, key, value, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-
 - (HiScrollNode *)topNode {
     return [self nodeForKey:@selector(topNode)];
 }
@@ -231,6 +201,47 @@ inline CGFloat hi_rubberBandDistance(CGFloat offset, CGFloat dimension) {
     NSNumber *value = objc_getAssociatedObject(self, key);
     return [value integerValue];
 }
+
+/// MARK: - method
+- (BOOL)contentInSizeWithDirection:(HiScrollViewDirection)direction {
+    switch (direction) {
+        case HiScrollViewDirectionVertical:
+            return self.maxVerticalBottom < self.frame.size.height;
+
+        case HiScrollViewDirectionHorizontal:
+            return self.maxHorizontalRight < self.frame.size.width;
+    }
+}
+
+- (BOOL)scrollBoundsWithDirction:(HiScrollViewDirection)scrollDirection {
+    switch (scrollDirection) {
+        case HiScrollViewDirectionVertical:
+            return self.scrollTop || self.scrollBottom;
+
+        case HiScrollViewDirectionHorizontal:
+            return self.scrollLeft || self.scrollRight;
+    }
+}
+
+- (BOOL)overSizeWithDirection:(HiScrollViewDirection)scrollDirection {
+    switch (scrollDirection) {
+        case HiScrollViewDirectionVertical:
+            return self.overVerticalSize;
+
+        case HiScrollViewDirectionHorizontal:
+            return self.overHorizontalSize;
+    }
+}
+
+- (CGFloat)overBoundsWithDirection:(HiScrollViewDirection)direction {
+    switch (direction) {
+        case HiScrollViewDirectionVertical:
+            return self.overVerticalBounds;
+        case HiScrollViewDirectionHorizontal:
+            return self.overHorizontalBounds;
+    }
+}
+
 
 - (NSInteger)hi_propertyForDirection:(HiScrollViewProperty)direction {
     
@@ -338,6 +349,153 @@ inline CGFloat hi_rubberBandDistance(CGFloat offset, CGFloat dimension) {
     {
         method_exchangeImplementations(originalMethod, altMetthod);
     }
+}
+
+- (CGFloat)sizeForDirection:(HiScrollViewDirection)direction {
+    switch (direction) {
+        case HiScrollViewDirectionVertical:
+            return self.frame.size.height;
+        case HiScrollViewDirectionHorizontal:
+            return self.frame.size.width;
+    }
+}
+
+- (CGFloat)targetForDirection:(HiScrollViewDirection)direction offset:(CGFloat)offset{
+    switch (direction) {
+        case HiScrollViewDirectionVertical:
+            return self.contentOffset.y - offset;
+        case HiScrollViewDirectionHorizontal:
+            return self.contentOffset.x - offset;
+    }
+}
+
+- (CGFloat)maxOffsetWithDirection:(HiScrollViewDirection)direction {
+    switch (direction) {
+        case HiScrollViewDirectionVertical:
+            return self.maxVerticalOffset;
+        case HiScrollViewDirectionHorizontal:
+            return self.maxHorizontalOffset;
+    }
+}
+
+- (CGFloat)minOffsetWithDirection:(HiScrollViewDirection)direction {
+    switch (direction) {
+        case HiScrollViewDirectionVertical:
+            return self.minVerticalTop;
+        case HiScrollViewDirectionHorizontal:
+            return self.minHorizontalLeft;
+    }
+}
+
+/// MARK: 是否可以处理 滚动, 如果可以 处理
+- (BOOL)canChangeOffset:(CGFloat)offset size:(CGFloat)size direction:(HiScrollViewDirection)directon {
+    if (!self.hi_scrollEnabled) return false;
+    
+    CGFloat target = [self targetForDirection:directon offset:offset];
+    BOOL res = true;
+    CGFloat min = [self minOffsetWithDirection:directon];
+    if (target < min) {
+        if (self.bouncesInsets.top) {
+            target = [self targetForDirection:directon offset:[self springWithVerticalOffset:hi_rubberBandDistance(offset, size)]];
+        } else {
+            target = min;
+            res = false;
+        }
+        
+    } else {
+        CGFloat maxOffsetSize = [self maxOffsetWithDirection:directon];
+        if (target > maxOffsetSize) {
+            if (self.bouncesInsets.bottom) {
+                target = [self targetForDirection:directon offset:[self springWithVerticalOffset:hi_rubberBandDistance(offset, size)]];
+            } else {
+                target = maxOffsetSize;
+                res = false;
+            }
+        }
+    }
+
+    CGPoint point = HiScrollViewDirectionVertical == directon ? CGPointMake(0, target): CGPointMake(target, 0);
+    [self updateContentOffset:point];
+    
+    return res;
+}
+
+- (CGPoint)resetPointForDirection:(HiScrollViewDirection)direction {
+    CGFloat value = [self minOffsetWithDirection:direction];
+    
+    if ([self overBoundsWithDirection:direction] > 0 && ![self contentInSizeWithDirection:direction]) {
+        value =  [self maxOffsetWithDirection:direction];
+    }
+    
+    return HiScrollViewDirectionVertical == direction ? CGPointMake(0, value) : CGPointMake(value, 0);
+}
+
+
+
+/// 容器调用
+/// MARK: 控制上下滚动的方法
+- (void)controlScrollOffset:(CGFloat)offset state:(UIGestureRecognizerState)state {
+    
+    self.actionScrollView = [self changeOffset:offset];
+    if (UIGestureRecognizerStateEnded == state) [self resetScrollView:self.actionScrollView];
+}
+
+/// MARK: 改变 offset
+- (UIScrollView *)changeOffset:(CGFloat)offset {
+    // 上 : offset < 0
+    CGFloat size = [self sizeForDirection:self.scrollDirection];
+    
+    UIScrollView *actionScrollView = self.actionScrollView;
+    if ([self.actionScrollView overSizeWithDirection:self.scrollDirection]) { // 当前处理滚动的 scroll view 没有回到原来的位置 优先 actionScrollView 响应
+        [self.actionScrollView canChangeOffset:offset size:size direction:self.scrollDirection];
+    } else {
+        actionScrollView = [self actionScrollViewWithOffset:offset size:size];;
+    }
+    
+    return actionScrollView;
+}
+
+/// MARK: 可以响应事件的 scroll view
+- (UIScrollView *)actionScrollViewWithOffset:(CGFloat)offset size:(CGFloat)size {
+    HiScrollNode *node = offset < 0 ? self.topNode : self.bottomNode;
+    while (node && ![node.object canChangeOffset:offset size:size direction:self.scrollDirection]) {
+        node = node.nextNode;
+    }
+    return node.object;
+}
+
+/// MARK: if oversize, resetsize
+- (void)resetScrollView:(UIScrollView *)scrollView {
+    HiScrollViewDirection direction = self.scrollDirection;
+    if ([scrollView overSizeWithDirection:direction]) {
+        CGPoint target = [self resetPointForDirection:direction];
+        [self springBehaviorWithTarget:target scrollView:scrollView];
+    }
+}
+
+/// MARK: 添加线性加速 ,没有超过size
+- (UIDynamicItemBehavior *)addInertialBehaviorWithVelocity:(CGPoint)velocity {
+    UIDynamicItemBehavior *inertialBehavior = [[UIDynamicItemBehavior alloc] initWithItems:@[self.dynamicItem]];
+    
+    [inertialBehavior addLinearVelocity:velocity forItem:self.dynamicItem];
+    inertialBehavior.resistance = 2.3;
+    __block CGPoint lastCenter = CGPointZero;
+    __weak typeof(self) weak = self;
+    inertialBehavior.action = ^{
+        __strong typeof(weak) strong = weak;
+        // 得到每次移动的距离
+        CGFloat current = 0;
+        if (HiScrollViewDirectionVertical == self.scrollDirection) {
+            current = strong.dynamicItem.center.y - lastCenter.y;
+        } else {
+            current = strong.dynamicItem.center.x - lastCenter.x;
+        }
+        
+        // 更新 actionScrollView
+        [strong controlScrollOffset:current state:UIGestureRecognizerStateEnded];
+        lastCenter = strong.dynamicItem.center;
+    };
+    return inertialBehavior;
 }
 
 @end

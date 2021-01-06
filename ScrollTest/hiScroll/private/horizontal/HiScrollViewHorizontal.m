@@ -86,7 +86,7 @@
         
         CGFloat x = scrollView.minHorizontalLeft;
         if (scrollView.overHorizontalBounds > 0) {
-            x = scrollView.contentInSize ? scrollView.minHorizontalLeft : scrollView.maxHorizontalRight;
+            x = [scrollView contentInSizeWithDirection:self.scrollDirection] ? scrollView.minHorizontalLeft : scrollView.maxHorizontalRight;
         }
         [self springBehaviorWithTarget:CGPointMake(x, 0) scrollView:scrollView];
     }

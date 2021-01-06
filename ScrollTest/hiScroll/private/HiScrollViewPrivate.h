@@ -51,8 +51,6 @@ extern CGFloat hi_rubberBandDistance(CGFloat offset, CGFloat dimension);
 @property (nonatomic, assign, readonly) BOOL scrollLeft;
 @property (nonatomic, assign, readonly) BOOL scrollRight;
 
-@property (nonatomic, assign, readonly) BOOL contentInSize;// 内容不足
-
 @property (nonatomic, assign) UIGestureRecognizerState hi_state;
 
 @property (nonatomic, assign, readonly) BOOL scrollDirectTop;// 可以向上滚动
@@ -65,6 +63,7 @@ extern CGFloat hi_rubberBandDistance(CGFloat offset, CGFloat dimension);
 @property (nonatomic, strong) HiScrollNode *leftNode;
 @property (nonatomic, strong) HiScrollNode *rightNode;
 @property (nonatomic, assign) HiScrollViewDirection scrollDirection;
+@property (nonatomic, assign) BOOL hi_draggin;
 
 - (NSInteger)hi_propertyForDirection:(HiScrollViewProperty)direction;
 
@@ -75,14 +74,23 @@ extern CGFloat hi_rubberBandDistance(CGFloat offset, CGFloat dimension);
 - (UIAttachmentBehavior *)attachmentBehaviorWithTarget:(CGPoint)target action:(void (^)(void))action;
 
 - (HiScrollNode *)generateNode;
-@property (nonatomic, assign) BOOL hi_draggin;
 
-// 弹性动画
+/// 弹性动画 外部容器调用
+/// @param scrollView 要添加的 scroll
 - (void)springBehaviorWithTarget:(CGPoint)target scrollView:(UIScrollView *)scrollView;
-// 滚到边界
+
+/// 内容不足
+- (BOOL)contentInSizeWithDirection:(HiScrollViewDirection)direction;
+
+/// 滚到边界
 - (BOOL)scrollBoundsWithDirction:(HiScrollViewDirection)scrollDirection;
-// 超出边界
+
+/// 超出边界
 - (BOOL)overSizeWithDirection:(HiScrollViewDirection)scrollDirection;
+
+/// 结束时添加线性动画
+- (UIDynamicItemBehavior *)addInertialBehaviorWithVelocity:(CGPoint)velocity direction:(HiScrollViewDirection)direction;
+
 @end
 
 NS_ASSUME_NONNULL_END

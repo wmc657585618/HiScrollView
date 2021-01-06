@@ -87,7 +87,7 @@
         CGFloat y = scrollView.minVerticalTop;
         
         if (scrollView.overVerticalBounds > 0) {
-            y = scrollView.contentInSize ? scrollView.minVerticalTop : scrollView.maxVerticalOffset;
+            y = [scrollView contentInSizeWithDirection:self.scrollDirection] ? scrollView.minVerticalTop : scrollView.maxVerticalOffset;
         }
         
         [self springBehaviorWithTarget:CGPointMake(0, y) scrollView:scrollView];
