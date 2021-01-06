@@ -148,7 +148,8 @@ static inline HiScrollNode * hi_nodesSort(HiScrollNode *head, BOOL revert, HiScr
             self.dynamicItem.center = self.superview.bounds.origin;
             // velocity是在手势结束的时候获取的竖直方向的手势速度
             CGPoint velocity = [recognizer velocityInView:self.superview];
-            [self addInertialBehaviorWithVelocity:velocity];
+            UIDynamicItemBehavior *inertialBehavior = [self addInertialBehaviorWithVelocity:velocity];
+            if (inertialBehavior) [self.animator addBehavior:inertialBehavior];
         }
             break;
     }
