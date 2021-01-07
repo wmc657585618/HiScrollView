@@ -285,14 +285,6 @@ inline CGFloat hi_rubberBandDistance(CGFloat offset, CGFloat dimension) {
     return offset;
 }
 
-- (CGFloat)springWithVerticalOffset:(CGFloat)offset {
-    return [self springWithOffset:offset size:self.overVerticalBounds];
-}
-
-- (CGFloat)springWithHorizontalOffset:(CGFloat)offset {
-    return [self springWithOffset:offset size:self.overHorizontalBounds];
-}
-
 - (UIAttachmentBehavior *)attachmentBehaviorWithTarget:(CGPoint)target action:(void (^)(void))action {
     UIAttachmentBehavior *springBehavior = [[UIAttachmentBehavior alloc] initWithItem:self.dynamicItem attachedToAnchor:target];
     springBehavior.length = 0;
@@ -407,8 +399,8 @@ inline CGFloat hi_rubberBandDistance(CGFloat offset, CGFloat dimension) {
     }
 }
 
-
 /// MARK: 是否可以处理 滚动, 如果可以 处理
+/// @param size width or height
 - (BOOL)canChangeOffset:(CGFloat)offset size:(CGFloat)size direction:(HiScrollViewDirection)directon {
     if (!self.hi_scrollEnabled) return false;
     
@@ -417,7 +409,7 @@ inline CGFloat hi_rubberBandDistance(CGFloat offset, CGFloat dimension) {
     CGFloat min = [self minOffsetWithDirection:directon];
     if (target < min) {
         if ([self minBounceWithDirection:directon]) {
-            target = [self targetForDirection:directon offset:[self springWithVerticalOffset:hi_rubberBandDistance(offset, size)]];
+            target = [self targetForDirection:directon offset:hi_rubberBandDistance(offset, size)];
         } else {
             target = min;
             res = false;
@@ -427,7 +419,7 @@ inline CGFloat hi_rubberBandDistance(CGFloat offset, CGFloat dimension) {
         CGFloat maxOffsetSize = [self maxOffsetWithDirection:directon];
         if (target > maxOffsetSize) {
             if ([self maxBounceWithDirection:directon]) {
-                target = [self targetForDirection:directon offset:[self springWithVerticalOffset:hi_rubberBandDistance(offset, size)]];
+                target = [self targetForDirection:directon offset:hi_rubberBandDistance(offset, size)];
             } else {
                 target = maxOffsetSize;
                 res = false;

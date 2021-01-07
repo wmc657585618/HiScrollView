@@ -101,6 +101,7 @@
     if (self.addGesture) return true;
     UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panAction:)];
     pan.delegate = self;
+    pan.delaysTouchesBegan = true;
     [view addGestureRecognizer:pan];
     self.addGesture = true;
     return false;

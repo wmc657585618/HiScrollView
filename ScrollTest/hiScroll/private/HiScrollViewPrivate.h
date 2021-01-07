@@ -66,8 +66,6 @@ extern CGFloat hi_rubberBandDistance(CGFloat offset, CGFloat dimension);
 /// 更新 direction 上的值
 - (void)updateContentOffset:(CGFloat)offset direction:(HiScrollViewDirection)direction;
 
-- (CGFloat)springWithVerticalOffset:(CGFloat)offset;
-- (CGFloat)springWithHorizontalOffset:(CGFloat)offset;
 - (UIAttachmentBehavior *)attachmentBehaviorWithTarget:(CGPoint)target action:(void (^)(void))action;
 
 - (HiScrollNode *)generateNode;
