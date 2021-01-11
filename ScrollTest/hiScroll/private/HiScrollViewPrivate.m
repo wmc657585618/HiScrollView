@@ -11,6 +11,17 @@
 #import "HiScrollViewPropertyVertical.h"
 #import <objc/runtime.h>
 
+typedef struct __attribute__((objc_boxable)) HiScrollOffset {
+    BOOL changed; // 是否改
+    CGFloat target;
+    BOOL available;
+} HiScrollOffset;
+
+UIKIT_STATIC_INLINE HiScrollOffset HiScrollOffsetMake(BOOL changed, CGFloat target, BOOL available) {
+    HiScrollOffset offset = {changed, target,available};
+    return offset;
+}
+
 // 来自网络
 inline CGFloat hi_rubberBandDistance(CGFloat offset, CGFloat dimension) {
     
@@ -233,7 +244,6 @@ inline CGFloat hi_rubberBandDistance(CGFloat offset, CGFloat dimension) {
     }
 }
 
-
 - (NSInteger)hi_propertyForDirection:(HiScrollViewProperty)direction {
     
     switch (direction) {
@@ -264,25 +274,6 @@ inline CGFloat hi_rubberBandDistance(CGFloat offset, CGFloat dimension) {
         }
         self.contentOffset = point;
     }
-}
-
-// 弹簧系数
-- (CGFloat)springWithOffset:(CGFloat)offset size:(CGFloat)size{
-    
-    static CGFloat margin = 300.0;
-    static CGFloat value = 7.0;
-    
-    CGFloat s = size;
-    if (s < 0) { // 上面超出
-        s = -s;
-    }
-    
-    if (s > 0) {
-        if (s > margin) return s / value;
-        s = s * value / margin;
-        if (s > 1) return offset / s;
-    }
-    return offset;
 }
 
 - (UIAttachmentBehavior *)attachmentBehaviorWithTarget:(CGPoint)target action:(void (^)(void))action {
@@ -339,8 +330,7 @@ inline CGFloat hi_rubberBandDistance(CGFloat offset, CGFloat dimension) {
     Method originalMethod = class_getInstanceMethod(self, originalSelector);
     Method altMetthod = class_getInstanceMethod(self, altSelector);
     
-    if (originalMethod && altMetthod)
-    {
+    if (originalMethod && altMetthod) {
         method_exchangeImplementations(originalMethod, altMetthod);
     }
 }
@@ -401,35 +391,51 @@ inline CGFloat hi_rubberBandDistance(CGFloat offset, CGFloat dimension) {
 
 /// MARK: 是否可以处理 滚动, 如果可以 处理
 /// @param size width or height
-- (BOOL)canChangeOffset:(CGFloat)offset size:(CGFloat)size direction:(HiScrollViewDirection)directon {
+- (BOOL)canChangeOffset:(CGFloat)offset size:(CGFloat)size direction:(HiScrollViewDirection)direction {
     if (!self.hi_scrollEnabled) return false;
     
-    CGFloat target = [self targetForDirection:directon offset:offset];
-    BOOL res = true;
-    CGFloat min = [self minOffsetWithDirection:directon];
+    CGFloat target = [self targetForDirection:direction offset:offset];
+    CGSize offsetSize = CGSizeMake(offset, size);
+    HiScrollOffset objc = [self changeMinTarget:target direction:direction size:offsetSize];
+
+    if (!objc.available) objc = [self changeMaxTarget:target direction:direction size:offsetSize];
+
+    [self updateContentOffset:objc.target direction:direction];
+    
+    return objc.changed;
+}
+
+- (HiScrollOffset)changeMinTarget:(CGFloat)target direction:(HiScrollViewDirection)direction size:(CGSize)size {
+    CGFloat min = [self minOffsetWithDirection:direction];
+    BOOL changed = true;
+    BOOL available = false;
     if (target < min) {
-        if ([self minBounceWithDirection:directon]) {
-            target = [self targetForDirection:directon offset:hi_rubberBandDistance(offset, size)];
+        available = true;
+        if ([self minBounceWithDirection:direction]) {
+            target = [self targetForDirection:direction offset:hi_rubberBandDistance(size.width, size.height)];
         } else {
             target = min;
-            res = false;
-        }
-        
-    } else {
-        CGFloat maxOffsetSize = [self maxOffsetWithDirection:directon];
-        if (target > maxOffsetSize) {
-            if ([self maxBounceWithDirection:directon]) {
-                target = [self targetForDirection:directon offset:hi_rubberBandDistance(offset, size)];
-            } else {
-                target = maxOffsetSize;
-                res = false;
-            }
+            changed = false;
         }
     }
-
-    [self updateContentOffset:target direction:directon];
     
-    return res;
+    return HiScrollOffsetMake(changed, target, available);
+}
+
+- (HiScrollOffset)changeMaxTarget:(CGFloat)target direction:(HiScrollViewDirection)direction size:(CGSize)size {
+    CGFloat maxOffsetSize = [self maxOffsetWithDirection:direction];
+    BOOL changed = true;
+    BOOL available = false;
+    if (target > maxOffsetSize) {
+        available = true;
+        if ([self maxBounceWithDirection:direction]) {
+            target = [self targetForDirection:direction offset:hi_rubberBandDistance(size.width, size.height)];
+        } else {
+            target = maxOffsetSize;
+            changed = false;
+        }
+    }
+    return HiScrollOffsetMake(changed, target, available);
 }
 
 - (CGPoint)resetPointForDirection:(HiScrollViewDirection)direction {
