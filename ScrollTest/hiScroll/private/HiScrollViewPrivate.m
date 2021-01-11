@@ -204,6 +204,17 @@ inline CGFloat hi_rubberBandDistance(CGFloat offset, CGFloat dimension) {
     return [value integerValue];
 }
 
+- (void)setHi_draggin:(BOOL)hi_draggin {
+    SEL key = @selector(hi_draggin);
+    objc_setAssociatedObject(self, key, @(hi_draggin), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (BOOL)hi_draggin {
+    SEL key = @selector(hi_draggin);
+    NSNumber *value = objc_getAssociatedObject(self, key);
+    return [value boolValue];
+}
+
 /// MARK: - method
 - (BOOL)contentInSizeWithDirection:(HiScrollViewDirection)direction {
     switch (direction) {
@@ -289,17 +300,6 @@ inline CGFloat hi_rubberBandDistance(CGFloat offset, CGFloat dimension) {
     HiScrollNode *node = [[HiScrollNode alloc] init];
     node.object = self;
     return node;
-}
-
-- (void)setHi_draggin:(BOOL)hi_draggin {
-    SEL key = @selector(hi_draggin);
-    objc_setAssociatedObject(self, key, @(hi_draggin), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-- (BOOL)hi_draggin {
-    SEL key = @selector(hi_draggin);
-    NSNumber *value = objc_getAssociatedObject(self, key);
-    return [value boolValue];
 }
 
 - (void)springBehaviorWithTarget:(CGPoint)target scrollView:(UIScrollView *)scrollView {
@@ -512,6 +512,7 @@ inline CGFloat hi_rubberBandDistance(CGFloat offset, CGFloat dimension) {
 
 /// MARK: 添加线性加速 ,没有超过size
 - (UIDynamicItemBehavior *)addInertialBehaviorWithVelocity:(CGPoint)velocity {
+    if (!self.actionScrollView)return nil;
     UIDynamicItemBehavior *inertialBehavior = [[UIDynamicItemBehavior alloc] initWithItems:@[self.dynamicItem]];
     
     [inertialBehavior addLinearVelocity:velocity forItem:self.dynamicItem];
