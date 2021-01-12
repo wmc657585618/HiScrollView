@@ -530,8 +530,13 @@ inline CGFloat hi_rubberBandDistance(CGFloat offset, CGFloat dimension) {
         }
         
         // 更新 actionScrollView
-        [strong controlScrollOffset:current state:UIGestureRecognizerStateEnded];
-        lastCenter = strong.dynamicItem.center;
+        if (strong.actionScrollView) {
+            [strong controlScrollOffset:current state:UIGestureRecognizerStateEnded];
+            lastCenter = strong.dynamicItem.center;
+            
+        } else {
+            [strong.animator removeAllBehaviors];
+        }
     };
     return inertialBehavior;
 }
