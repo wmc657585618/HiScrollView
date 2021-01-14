@@ -23,10 +23,20 @@ UIKIT_STATIC_INLINE HiScrollOffset HiScrollOffsetMake(BOOL changed, CGFloat targ
 }
 
 // 来自网络
+/*
+ f(x, d, c) = (x * d * c) / (d + c * x)
+
+ where,
+ x – distance from the edge
+ c – constant (UIScrollView uses 0.55)
+ d – dimension, either width or height
+ */
 inline CGFloat hi_rubberBandDistance(CGFloat offset, CGFloat dimension) {
     
     static CGFloat const constant = 0.55f;
-    CGFloat result = (constant * fabs(offset) * dimension) / (dimension + constant * fabs(offset));
+    CGFloat b = dimension + constant * fabs(offset);
+    if (0 == b) return 0;
+    CGFloat result = (constant * fabs(offset) * dimension) / b;
     return offset < 0.0f ? -result : result;
 }
 
@@ -291,7 +301,7 @@ inline CGFloat hi_rubberBandDistance(CGFloat offset, CGFloat dimension) {
     UIAttachmentBehavior *springBehavior = [[UIAttachmentBehavior alloc] initWithItem:self.dynamicItem attachedToAnchor:target];
     springBehavior.length = 0;
     springBehavior.damping = 1;
-    springBehavior.frequency = 2;
+    springBehavior.frequency = CGFLOAT_MIN;
     springBehavior.action = action;
     return springBehavior;
 }
@@ -390,12 +400,11 @@ inline CGFloat hi_rubberBandDistance(CGFloat offset, CGFloat dimension) {
 }
 
 /// MARK: 是否可以处理 滚动, 如果可以 处理
-/// @param size width or height
-- (BOOL)canChangeOffset:(CGFloat)offset size:(CGFloat)size direction:(HiScrollViewDirection)direction {
+- (BOOL)canChangeOffset:(CGFloat)offset direction:(HiScrollViewDirection)direction {
     if (!self.hi_scrollEnabled) return false;
-    
+
     CGFloat target = [self targetForDirection:direction offset:offset];
-    CGSize offsetSize = CGSizeMake(offset, size);
+    CGSize offsetSize = CGSizeMake(offset, [self sizeForDirection:direction]);
     HiScrollOffset objc = [self changeMinTarget:target direction:direction size:offsetSize];
 
     if (!objc.available) objc = [self changeMaxTarget:target direction:direction size:offsetSize];
@@ -461,13 +470,12 @@ inline CGFloat hi_rubberBandDistance(CGFloat offset, CGFloat dimension) {
 /// MARK: 改变 offset
 - (UIScrollView *)changeOffset:(CGFloat)offset {
     // 上 : offset < 0
-    CGFloat size = [self sizeForDirection:self.scrollDirection];
     
     UIScrollView *actionScrollView = self.actionScrollView;
     if ([self.actionScrollView overSizeWithDirection:self.scrollDirection]) { // 当前处理滚动的 scroll view 没有回到原来的位置 优先 actionScrollView 响应
-        [self.actionScrollView canChangeOffset:offset size:size direction:self.scrollDirection];
+        [self.actionScrollView canChangeOffset:offset direction:self.scrollDirection];
     } else {
-        actionScrollView = [self actionScrollViewWithOffset:offset size:size];;
+        actionScrollView = [self actionScrollViewWithOffset:offset];;
     }
     
     return actionScrollView;
@@ -492,9 +500,9 @@ inline CGFloat hi_rubberBandDistance(CGFloat offset, CGFloat dimension) {
 }
 
 /// MARK: 可以响应事件的 scroll view
-- (UIScrollView *)actionScrollViewWithOffset:(CGFloat)offset size:(CGFloat)size {
+- (UIScrollView *)actionScrollViewWithOffset:(CGFloat)offset {
     HiScrollNode *node = offset < 0 ? [self minNode] : [self maxNode];
-    while (node && ![node.object canChangeOffset:offset size:size direction:self.scrollDirection]) {
+    while (node && ![node.object canChangeOffset:offset direction:self.scrollDirection]) {
         node = node.nextNode;
     }
     return node.object;
