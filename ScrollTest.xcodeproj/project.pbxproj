@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1C08980425B12F7900F0D6E8 /* HiScrollViewProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C08980325B12F7900F0D6E8 /* HiScrollViewProperty.m */; };
 		1C764A282588E3AF002BDDB8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C764A272588E3AF002BDDB8 /* AppDelegate.m */; };
 		1C764A2B2588E3AF002BDDB8 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C764A2A2588E3AF002BDDB8 /* SceneDelegate.m */; };
 		1C764A2E2588E3AF002BDDB8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C764A2D2588E3AF002BDDB8 /* ViewController.m */; };
@@ -47,6 +48,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1C08980225B12F7900F0D6E8 /* HiScrollViewProperty.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HiScrollViewProperty.h; sourceTree = "<group>"; };
+		1C08980325B12F7900F0D6E8 /* HiScrollViewProperty.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HiScrollViewProperty.m; sourceTree = "<group>"; };
 		1C764A232588E3AF002BDDB8 /* ScrollTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScrollTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C764A262588E3AF002BDDB8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1C764A272588E3AF002BDDB8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -132,6 +135,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1C08980125B12F6600F0D6E8 /* property */ = {
+			isa = PBXGroup;
+			children = (
+				1C08980225B12F7900F0D6E8 /* HiScrollViewProperty.h */,
+				1C08980325B12F7900F0D6E8 /* HiScrollViewProperty.m */,
+			);
+			path = property;
+			sourceTree = "<group>";
+		};
 		1C764A1A2588E3AF002BDDB8 = {
 			isa = PBXGroup;
 			children = (
@@ -312,6 +324,7 @@
 		1CDB2C6525A2EE4200802FC4 /* private */ = {
 			isa = PBXGroup;
 			children = (
+				1C08980125B12F6600F0D6E8 /* property */,
 				1CDB2C6C25A2EE4200802FC4 /* HiScrollViewPrivate.h */,
 				1CDB2C6625A2EE4200802FC4 /* HiScrollViewPrivate.m */,
 				1CDB2C6725A2EE4200802FC4 /* horizontal */,
@@ -415,6 +428,7 @@
 				1CC1A0BC2599FF8C007F8F8B /* MJRefreshGifHeader.m in Sources */,
 				1CDB2C7925A2EE4200802FC4 /* HiScrollViewPropertyVertical.m in Sources */,
 				1CC1A0C02599FF8C007F8F8B /* MJRefreshAutoFooter.m in Sources */,
+				1C08980425B12F7900F0D6E8 /* HiScrollViewProperty.m in Sources */,
 				1C764A282588E3AF002BDDB8 /* AppDelegate.m in Sources */,
 				1CC1A0BF2599FF8C007F8F8B /* MJRefreshBackFooter.m in Sources */,
 				1CC1A0C12599FF8C007F8F8B /* MJRefreshComponent.m in Sources */,

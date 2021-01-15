@@ -6,7 +6,6 @@
 //
 
 #import "HiScrollViewPublic.h"
-#import "HiScrollViewPrivate.h"
 #import <objc/runtime.h>
 
 @implementation UIScrollView (HiScrollViewPublic)
