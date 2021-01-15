@@ -200,6 +200,22 @@ static inline HiScrollNode * hi_nodesSort(HiScrollNode *head, BOOL revert, HiScr
     return true;
 }
 
+- (BOOL)_isDragging {
+    if (self.hi_scrollEnabled) return self.hi_draggin;
+    return [self _isDragging];
+}
+
++ (void)load {
+    SEL originalSelector = @selector(isDragging);
+    SEL altSelector = @selector(_isDragging);
+    Method originalMethod = class_getInstanceMethod(self, originalSelector);
+    Method altMetthod = class_getInstanceMethod(self, altSelector);
+    
+    if (originalMethod && altMetthod) {
+        method_exchangeImplementations(originalMethod, altMetthod);
+    }
+}
+
 /// MARK: - public
 - (void)hi_scrollWithScrollDirection:(HiScrollViewDirection)direction {
     if (![self.scrollGesture addGestureAtView:self]) self.scrollDirection = direction;

@@ -31,7 +31,6 @@ extern CGFloat hi_rubberBandDistance(CGFloat offset, CGFloat dimension);
 
 @interface UIScrollView (HiScrollViewPrivate)
 
-
 - (NSInteger)hi_propertyForDirection:(HiScrollViewProperty)direction;
 
 /// 更新 direction 上的值

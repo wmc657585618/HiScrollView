@@ -143,22 +143,6 @@ inline CGFloat hi_rubberBandDistance(CGFloat offset, CGFloat dimension) {
     [self.animator addBehavior:springBehavior];
 }
 
-- (BOOL)_isDragging {
-    if (self.hi_scrollEnabled) return self.hi_draggin;
-    return [self _isDragging];
-}
-
-+ (void)load {
-    SEL originalSelector = @selector(isDragging);
-    SEL altSelector = @selector(_isDragging);
-    Method originalMethod = class_getInstanceMethod(self, originalSelector);
-    Method altMetthod = class_getInstanceMethod(self, altSelector);
-    
-    if (originalMethod && altMetthod) {
-        method_exchangeImplementations(originalMethod, altMetthod);
-    }
-}
-
 - (CGFloat)sizeForDirection:(HiScrollViewDirection)direction {
     switch (direction) {
         case HiScrollViewDirectionVertical:
@@ -177,6 +161,7 @@ inline CGFloat hi_rubberBandDistance(CGFloat offset, CGFloat dimension) {
     }
 }
 
+///MARK:- 最大偏移量
 - (CGFloat)maxOffsetWithDirection:(HiScrollViewDirection)direction {
     switch (direction) {
         case HiScrollViewDirectionVertical:
@@ -186,6 +171,7 @@ inline CGFloat hi_rubberBandDistance(CGFloat offset, CGFloat dimension) {
     }
 }
 
+///MARK:- 最小偏移量
 - (CGFloat)minOffsetWithDirection:(HiScrollViewDirection)direction {
     switch (direction) {
         case HiScrollViewDirectionVertical:
@@ -195,6 +181,7 @@ inline CGFloat hi_rubberBandDistance(CGFloat offset, CGFloat dimension) {
     }
 }
 
+///MARK:- 达到最小偏移量是否可以触发bounce
 - (BOOL)minBounceWithDirection:(HiScrollViewDirection)direction {
     switch (direction) {
         case HiScrollViewDirectionVertical:
@@ -204,6 +191,7 @@ inline CGFloat hi_rubberBandDistance(CGFloat offset, CGFloat dimension) {
     }
 }
 
+///MARK:- 达到最大偏移量是否可以触发bounce
 - (BOOL)maxBounceWithDirection:(HiScrollViewDirection)direction {
     switch (direction) {
         case HiScrollViewDirectionVertical:
@@ -213,24 +201,9 @@ inline CGFloat hi_rubberBandDistance(CGFloat offset, CGFloat dimension) {
     }
 }
 
-/// MARK: 是否可以处理 滚动, 如果可以 处理
-- (BOOL)canChangeOffset:(CGFloat)offset direction:(HiScrollViewDirection)direction {
-    if (!self.hi_scrollEnabled) return false;
-
-    CGFloat target = [self targetForDirection:direction offset:offset];
-    CGSize offsetSize = CGSizeMake(offset, [self sizeForDirection:direction]);
-    HiScrollOffset objc = [self changeMinTarget:target direction:direction size:offsetSize];
-
-    if (!objc.available) objc = [self changeMaxTarget:target direction:direction size:offsetSize];
-
-    [self updateContentOffset:objc.target direction:direction];
-    
-    return objc.changed;
-}
-
 - (HiScrollOffset)changeMinTarget:(CGFloat)target direction:(HiScrollViewDirection)direction size:(CGSize)size {
     CGFloat min = [self minOffsetWithDirection:direction];
-    BOOL changed = true;
+    BOOL changed = true; // 是否可以处理 滚动
     BOOL available = false;
     if (target < min) {
         available = true;
@@ -247,7 +220,7 @@ inline CGFloat hi_rubberBandDistance(CGFloat offset, CGFloat dimension) {
 
 - (HiScrollOffset)changeMaxTarget:(CGFloat)target direction:(HiScrollViewDirection)direction size:(CGSize)size {
     CGFloat maxOffsetSize = [self maxOffsetWithDirection:direction];
-    BOOL changed = true;
+    BOOL changed = true; // 是否可以处理 滚动
     BOOL available = false;
     if (target > maxOffsetSize) {
         available = true;
@@ -271,30 +244,6 @@ inline CGFloat hi_rubberBandDistance(CGFloat offset, CGFloat dimension) {
     return HiScrollViewDirectionVertical == direction ? CGPointMake(0, value) : CGPointMake(value, 0);
 }
 
-
-
-/// MARK: - 容器调用
-/// MARK: 控制上下滚动的方法
-- (void)controlScrollOffset:(CGFloat)offset state:(UIGestureRecognizerState)state {
-    
-    self.actionScrollView = [self changeOffset:offset];
-    if (UIGestureRecognizerStateEnded == state) [self resetScrollView];
-}
-
-/// MARK: 改变 offset
-- (UIScrollView *)changeOffset:(CGFloat)offset {
-    // 上 : offset < 0
-    
-    UIScrollView *actionScrollView = self.actionScrollView;
-    if ([self.actionScrollView overSizeWithDirection:self.scrollDirection]) { // 当前处理滚动的 scroll view 没有回到原来的位置 优先 actionScrollView 响应
-        [self.actionScrollView canChangeOffset:offset direction:self.scrollDirection];
-    } else {
-        actionScrollView = [self actionScrollViewWithOffset:offset];;
-    }
-    
-    return actionScrollView;
-}
-
 - (HiScrollNode *)minNode {
     switch (self.scrollDirection) {
         case HiScrollViewDirectionVertical:
@@ -313,6 +262,31 @@ inline CGFloat hi_rubberBandDistance(CGFloat offset, CGFloat dimension) {
     }
 }
 
+/// MARK: - 容器调用
+/// MARK: 控制上下滚动的方法
+- (void)controlScrollOffset:(CGFloat)offset state:(UIGestureRecognizerState)state {
+    
+    if (UIGestureRecognizerStateEnded == state) {
+        [self endChangeOffset:offset];
+        
+    } else if (UIGestureRecognizerStateChanged == state) {
+        self.actionScrollView = [self changeOffset:offset];
+    }
+}
+
+/// MARK: - 改变 offset (滑动中)
+- (UIScrollView *)changeOffset:(CGFloat)offset {
+    // 上 : offset < 0
+    UIScrollView *actionScrollView = self.actionScrollView;
+    if ([self.actionScrollView overSizeWithDirection:self.scrollDirection]) { // 当前处理滚动的 scroll view 没有回到原来的位置 优先 actionScrollView 响应
+        [self.actionScrollView canChangeOffset:offset direction:self.scrollDirection];
+    } else {
+        actionScrollView = [self actionScrollViewWithOffset:offset];;
+    }
+    
+    return actionScrollView;
+}
+
 /// MARK: 可以响应事件的 scroll view
 - (UIScrollView *)actionScrollViewWithOffset:(CGFloat)offset {
     HiScrollNode *node = offset < 0 ? [self minNode] : [self maxNode];
@@ -322,17 +296,78 @@ inline CGFloat hi_rubberBandDistance(CGFloat offset, CGFloat dimension) {
     return node.object;
 }
 
-/// MARK: if oversize, resetsize
-- (void)resetScrollView {
-    UIScrollView *scrollView = self.actionScrollView;
-    HiScrollViewDirection direction = self.scrollDirection;
-    if ([scrollView overSizeWithDirection:direction]) {
-        CGPoint target = [scrollView resetPointForDirection:direction];
-        [self springBehaviorWithTarget:target scrollView:scrollView];
-    }
+/// MARK: 是否可以处理 滚动, 如果可以 处理
+- (BOOL)canChangeOffset:(CGFloat)offset direction:(HiScrollViewDirection)direction {
+    if (!self.hi_scrollEnabled) return false;
+
+    CGFloat target = [self targetForDirection:direction offset:offset];
+    CGSize offsetSize = CGSizeMake(offset, [self sizeForDirection:direction]);
+    HiScrollOffset objc = [self changeMinTarget:target direction:direction size:offsetSize];
+
+    if (!objc.available) objc = [self changeMaxTarget:target direction:direction size:offsetSize];
+
+    [self updateContentOffset:objc.target direction:direction];
+    
+    return objc.changed;
 }
 
-/// MARK: 添加线性加速 ,没有超过size
+/// MARK: 改变 offset (滑动中)
+
+/// MARK: - 改变 offset (滑动结束)
+- (UIScrollView *)endChangeOffset:(CGFloat)offset {
+    UIScrollView *actionScrollView = [self endActionScrollViewWithOffset:offset];;
+    return actionScrollView;
+}
+
+- (UIScrollView *)endActionScrollViewWithOffset:(CGFloat)offset {
+    HiScrollNode *node = offset < 0 ? [self minNode] : [self maxNode];
+    while (node && ![node.object canChangeEndOffset:offset direction:self.scrollDirection]) {
+        node = node.nextNode;
+    }
+    return node.object;
+}
+
+/// MARK: 是否可以处理 滚动, 如果可以 处理
+- (BOOL)canChangeEndOffset:(CGFloat)offset direction:(HiScrollViewDirection)direction {
+    if (!self.hi_scrollEnabled) return false;
+
+    CGFloat target = [self targetForDirection:direction offset:offset];
+    CGSize offsetSize = CGSizeMake(offset, [self sizeForDirection:direction]);
+    HiScrollOffset objc = [self changeEndMinTarget:target direction:direction size:offsetSize];
+
+    if (!objc.available) objc = [self changeEndMaxTarget:target direction:direction size:offsetSize];
+
+    [self updateContentOffset:objc.target direction:direction];
+
+    return objc.changed;
+}
+
+- (HiScrollOffset)changeEndMinTarget:(CGFloat)target direction:(HiScrollViewDirection)direction size:(CGSize)size {
+    CGFloat min = [self minOffsetWithDirection:direction];
+    BOOL available = false;
+    BOOL changed = true;
+    if (target < min) {
+        available = true;
+        target = min;
+        changed = false;
+    }
+    return HiScrollOffsetMake(changed, target, available);
+}
+
+- (HiScrollOffset)changeEndMaxTarget:(CGFloat)target direction:(HiScrollViewDirection)direction size:(CGSize)size {
+    CGFloat maxOffsetSize = [self maxOffsetWithDirection:direction];
+    BOOL available = false;
+    BOOL changed = true;
+
+    if (target > maxOffsetSize) {
+        available = true;
+        target = maxOffsetSize;
+        changed = false;
+    }
+    return HiScrollOffsetMake(changed, target, available);
+}
+
+/// MARK: 添加线性加速
 - (UIDynamicItemBehavior *)addInertialBehaviorWithVelocity:(CGPoint)velocity {
     if (!self.actionScrollView)return nil;
     UIDynamicItemBehavior *inertialBehavior = [[UIDynamicItemBehavior alloc] initWithItems:@[self.dynamicItem]];
@@ -362,5 +397,20 @@ inline CGFloat hi_rubberBandDistance(CGFloat offset, CGFloat dimension) {
     };
     return inertialBehavior;
 }
+
+/// MARK: 改变 offset (滑动结束)
+
+
+/// MARK: if oversize, resetsize
+- (void)resetScrollView {
+    UIScrollView *scrollView = self.actionScrollView;
+    HiScrollViewDirection direction = self.scrollDirection;
+    if ([scrollView overSizeWithDirection:direction]) {
+        CGPoint target = [scrollView resetPointForDirection:direction];
+        [self springBehaviorWithTarget:target scrollView:scrollView];
+    }
+}
+
+
 
 @end
